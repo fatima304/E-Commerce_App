@@ -5,7 +5,7 @@ import 'core/routes/app_routing.dart';
 
 void main() async {
   
-  await setup();
+  await setupServiceLocator();
   runApp(
     EcommerceApp(
       appRouting: AppRouting(),

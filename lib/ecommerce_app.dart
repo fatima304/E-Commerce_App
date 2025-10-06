@@ -11,7 +11,7 @@ class EcommerceApp extends StatelessWidget {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       onGenerateRoute: appRouting.generateRoute,
-      initialRoute: Routes.splashScreen,
+      initialRoute: Routes.loginScreen,
     );
   }
 }

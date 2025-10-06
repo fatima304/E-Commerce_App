@@ -1,33 +1,16 @@
-// import 'package:dio/dio.dart';
-// import 'package:ecommerce_app/core/network/api_constants.dart';
+import 'package:dio/dio.dart';
+import 'package:retrofit/retrofit.dart';
+import '../../../../core/network/api_constants.dart';
+import '../models/login/login_request_model.dart';
+import '../models/login/login_response_model.dart';
 
-// @RestApi(baseUrl: ApiConstants.baseUrl)
-// abstract class ApiServices {
-//   // factory ApiServices(Dio dio, {String? baseUrl}) = _ApiServices;
+part 'auth_api_service.g.dart';
 
-//   // @GET(ApiConstants.categories)
-//   // Future<CategoryModel> getAllCategories();
+@RestApi(baseUrl: ApiConstants.baseUrl)
+abstract class AuthApiService {
+  factory AuthApiService(Dio dio, {String? baseUrl}) = _AuthApiService;
 
-//   // @GET(ApiConstants.areas)
-//   // Future<AreaModel> getAllAreas();
+  @POST(ApiConstants.loginUrl) 
+  Future<LoginResponseModel> login(@Body() LoginRequestModel body);
 
-//   // @GET(ApiConstants.filter)
-//   // Future<FoodModel> getAllFood(
-//   //   @Query("a") String area,
-//   // );
-
-//   //   @GET(ApiConstants.filter)
-//   // Future<MealModel> getAllMeals(
-//   //   @Query("c") String meal,
-//   // );
-
-//   // @GET(ApiConstants.searchUsingName)
-//   // Future<SearchModelResponse> searchUsingName(
-//   //   @Query("s") String name,
-//   // );
-
-//   // @GET(ApiConstants.detailsUsingId)
-//   // Future<MealsModelResponse> getMealsDetails(
-//   //   @Query("i") String id,
-//   // );
-// }
+}
