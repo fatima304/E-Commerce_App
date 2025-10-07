@@ -6,6 +6,8 @@ import 'package:ecommerce_app/features/auth/presentation/screens/auth_screen.dar
 import 'package:ecommerce_app/features/auth/presentation/screens/login_screen.dart';
 import 'package:ecommerce_app/features/auth/presentation/screens/register_screen.dart';
 import 'package:ecommerce_app/features/auth/presentation/screens/verify_otp_screen.dart';
+import 'package:ecommerce_app/features/home/presentation/manager/category/category_cubit.dart';
+import 'package:ecommerce_app/features/home/presentation/manager/products/products_cubit.dart';
 import 'package:ecommerce_app/features/home/presentation/screens/home_screen.dart';
 import 'package:ecommerce_app/features/splash/presentation/screens/splash_screen.dart';
 import 'package:flutter/material.dart';
@@ -33,7 +35,19 @@ class AppRouting {
         );
 
       case Routes.homeScreen:
-        return MaterialPageRoute(builder: (_) => HomeScreen());
+        return MaterialPageRoute(
+          builder: (_) => MultiBlocProvider(
+            providers: [
+              BlocProvider(
+                create: (context) => getIt<CategoryCubit>()..fetchCategories(),
+              ),
+              BlocProvider(
+                create: (context) => getIt<ProductCubit>()..fetchProducts(),
+              ),
+            ],
+            child: HomeScreen(),
+          ),
+        );
     }
     return null;
   }

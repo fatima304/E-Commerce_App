@@ -1,9 +1,9 @@
 import 'package:dio/dio.dart';
 import 'package:pretty_dio_logger/pretty_dio_logger.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class DioFactory {
   DioFactory._();
-
   static Dio? dio;
 
   static Dio getDio() {
@@ -16,10 +16,8 @@ class DioFactory {
         ..options.receiveTimeout = timeOut;
 
       _addDioInterceptors();
-      return dio!;
-    } else {
-      return dio!;
     }
+    return dio!;
   }
 
   static void _addDioInterceptors() {
@@ -34,20 +32,18 @@ class DioFactory {
     dio?.interceptors.add(
       InterceptorsWrapper(
         onRequest: (options, handler) async {
-           final accessToken = await _getAccessToken();
+          final accessToken = await _getAccessToken();
           if (accessToken != null) {
             options.headers['Authorization'] = 'Bearer $accessToken';
           }
           return handler.next(options);
         },
         onError: (DioException e, handler) async {
-           if (e.response?.statusCode == 401) {
+          if (e.response?.statusCode == 401) {
             final refreshed = await _refreshToken();
-
             if (refreshed) {
-               final newAccessToken = await _getAccessToken();
+              final newAccessToken = await _getAccessToken();
               e.requestOptions.headers['Authorization'] = 'Bearer $newAccessToken';
-
               final cloneReq = await dio!.fetch(e.requestOptions);
               return handler.resolve(cloneReq);
             }
@@ -58,14 +54,26 @@ class DioFactory {
     );
   }
 
-   static Future<String?> _getAccessToken() async {
-     return null;
+  static Future<String?> _getAccessToken() async {
+    final prefs = await SharedPreferences.getInstance();
+    return prefs.getString('accessToken');
   }
 
-   static Future<bool> _refreshToken() async {
+  static Future<String?> _getRefreshToken() async {
+    final prefs = await SharedPreferences.getInstance();
+    return prefs.getString('refreshToken');
+  }
+
+  static Future<void> saveTokens(String accessToken, String refreshToken) async {
+    final prefs = await SharedPreferences.getInstance();
+    await prefs.setString('accessToken', accessToken);
+    await prefs.setString('refreshToken', refreshToken);
+  }
+
+  static Future<bool> _refreshToken() async {
     try {
-      final refreshToken = await _getRefreshToken(); 
-      
+      final refreshToken = await _getRefreshToken();
+      if (refreshToken == null) return false;
 
       final response = await dio!.post(
         'https://accessories-eshop.runasp.net/api/auth/refresh-token',
@@ -75,20 +83,12 @@ class DioFactory {
         },
       );
 
-       final newAccessToken = response.data['accessToken'];
+      final newAccessToken = response.data['accessToken'];
       final newRefreshToken = response.data['refreshToken'];
-      await _saveTokens(newAccessToken, newRefreshToken);
-
+      await saveTokens(newAccessToken, newRefreshToken);
       return true;
     } catch (e) {
       return false;
     }
   }
-
-  static Future<String?> _getRefreshToken() async {
-     return null;
-  }
-
-  static Future<void> _saveTokens(String accessToken, String refreshToken) async {
-   }
 }
