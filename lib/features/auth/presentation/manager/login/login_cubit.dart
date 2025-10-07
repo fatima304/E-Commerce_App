@@ -1,3 +1,4 @@
+import 'package:ecommerce_app/core/network/api_error_handler.dart';
 import 'package:ecommerce_app/core/network/dio_factory.dart';
 import 'package:ecommerce_app/features/auth/domain/repo/auth_repo.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -13,10 +14,14 @@ class LoginCubit extends Cubit<LoginState> {
     emit(const LoginLoading());
     try {
       final response = await _authRepository.login(request);
-      await DioFactory.saveTokens(response.accessToken, response.refreshToken ?? '');
+      await DioFactory.saveTokens(
+        response.accessToken,
+        response.refreshToken ?? '',
+      );
       emit(LoginSuccess(response));
     } catch (e) {
-      emit(LoginFailure(e.toString()));
+      final errorModel = ApiErrorHandler.handle(e);
+      emit(LoginFailure(errorModel.message ?? "Unknown error"));
     }
   }
 }

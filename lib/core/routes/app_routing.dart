@@ -6,8 +6,12 @@ import 'package:ecommerce_app/features/auth/presentation/screens/auth_screen.dar
 import 'package:ecommerce_app/features/auth/presentation/screens/login_screen.dart';
 import 'package:ecommerce_app/features/auth/presentation/screens/register_screen.dart';
 import 'package:ecommerce_app/features/auth/presentation/screens/verify_otp_screen.dart';
+import 'package:ecommerce_app/features/home/data/models/categories/category_model.dart';
+import 'package:ecommerce_app/features/home/data/models/products/product_model.dart';
 import 'package:ecommerce_app/features/home/presentation/manager/category/category_cubit.dart';
 import 'package:ecommerce_app/features/home/presentation/manager/products/products_cubit.dart';
+import 'package:ecommerce_app/features/home/presentation/screens/category_product_screen.dart';
+import 'package:ecommerce_app/features/home/presentation/screens/details_screen.dart';
 import 'package:ecommerce_app/features/home/presentation/screens/home_screen.dart';
 import 'package:ecommerce_app/features/splash/presentation/screens/splash_screen.dart';
 import 'package:flutter/material.dart';
@@ -34,6 +38,15 @@ class AppRouting {
           ),
         );
 
+      case Routes.categoryScreen:
+        final category = routesSettings.arguments as CategoryModel;
+        return MaterialPageRoute(
+          builder: (_) => BlocProvider(
+            create: (context) => getIt<ProductCubit>(),
+            child: CategoryProductScreen(category: category),
+          ),
+        );
+
       case Routes.homeScreen:
         return MaterialPageRoute(
           builder: (_) => MultiBlocProvider(
@@ -48,6 +61,11 @@ class AppRouting {
             child: HomeScreen(),
           ),
         );
+      case Routes.detailsScreen:
+  final product = routesSettings.arguments as ProductModel;
+  return MaterialPageRoute(
+    builder: (_) => DetailsScreen(product: product),
+  );
     }
     return null;
   }

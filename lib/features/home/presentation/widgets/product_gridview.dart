@@ -1,25 +1,39 @@
+import 'package:ecommerce_app/core/routes/routes.dart';
 import 'package:ecommerce_app/features/home/presentation/manager/products/products_cubit.dart';
 import 'package:ecommerce_app/features/home/presentation/manager/products/products_state.dart';
 import 'package:flutter/material.dart';
-import 'package:ecommerce_app/features/home/presentation/widgets/product_item.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'product_item.dart';
+import '../../data/models/categories/category_model.dart';
+import '../../data/models/products/product_model.dart';
 
 class ProductGridView extends StatelessWidget {
-  const ProductGridView({super.key});
+  final CategoryModel? category;
+
+  const ProductGridView({super.key, this.category});
 
   @override
   Widget build(BuildContext context) {
     return BlocBuilder<ProductCubit, ProductState>(
       builder: (context, state) {
         if (state is ProductLoading) {
-          return const SliverToBoxAdapter(
+          return SliverToBoxAdapter(
             child: SizedBox(
               height: 200,
-              child: Center(child: CircularProgressIndicator()),
+              child: Center(
+                child: CircularProgressIndicator(),
+              ),
             ),
           );
         } else if (state is ProductSuccess) {
-          final products = state.products;
+          List<ProductModel> products = state.products;
+
+          if (category != null && category!.name != 'all') {
+            products = products
+                .where((p) => p.categories.contains(category!.name))
+                .toList();
+          }
+
           return SliverPadding(
             padding: const EdgeInsets.only(bottom: 20),
             sliver: SliverGrid(
@@ -31,10 +45,19 @@ class ProductGridView extends StatelessWidget {
               ),
               delegate: SliverChildBuilderDelegate((context, index) {
                 final product = products[index];
-                return ProductItem(
-                  name: product.name,
-                  price: "${product.price} EGP",
-                  imageUrl: product.coverPictureUrl,
+                return GestureDetector(
+                  onTap: () {
+                    Navigator.pushNamed(
+                      context,
+                      Routes.detailsScreen,
+                      arguments: product,
+                    );
+                  },
+                  child: ProductItem(
+                    name: product.name,
+                    price: "${product.price} EGP",
+                    imageUrl: product.coverPictureUrl,
+                  ),
                 );
               }, childCount: products.length),
             ),
@@ -42,7 +65,8 @@ class ProductGridView extends StatelessWidget {
         } else if (state is ProductFailure) {
           return Center(child: Text('Error: ${state.message}'));
         }
-        return const SizedBox.shrink();
+
+        return SliverToBoxAdapter(child: const SizedBox.shrink());
       },
     );
   }

@@ -1,12 +1,8 @@
-import 'package:ecommerce_app/core/di/dependency_injection.dart';
-import 'package:ecommerce_app/features/home/presentation/manager/category/category_cubit.dart';
-import 'package:ecommerce_app/features/home/presentation/manager/products/products_cubit.dart';
 import 'package:ecommerce_app/features/home/presentation/widgets/category_section.dart';
 import 'package:ecommerce_app/features/home/presentation/widgets/home_header.dart';
 import 'package:ecommerce_app/features/home/presentation/widgets/product_gridview.dart';
 import 'package:ecommerce_app/features/home/presentation/widgets/product_section.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 
 class HomeScreen extends StatelessWidget {
   const HomeScreen({super.key});
