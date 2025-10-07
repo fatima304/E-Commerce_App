@@ -7,7 +7,7 @@ import 'package:ecommerce_app/features/auth/data/models/login/login_request_mode
 import 'package:ecommerce_app/features/auth/presentation/manager/login/login_cubit.dart';
 import 'package:ecommerce_app/features/auth/presentation/manager/login/login_state.dart';
 import 'package:ecommerce_app/features/auth/presentation/widgets/auth_button.dart';
-import 'package:ecommerce_app/features/auth/presentation/widgets/dialog.dart';
+import 'package:ecommerce_app/core/helper/alert_dialog.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -51,10 +51,21 @@ class _LoginFieldsState extends State<LoginFields> {
             builder: (_) => const Center(child: CircularProgressIndicator()),
           );
         } else if (state is LoginSuccess) {
-          Navigator.pushNamed(context, Routes.registerScreen);
-        } else if (state is LoginFailure) {
           Navigator.pop(context);
-          showErrorDialog(context);
+          Navigator.pushNamed(context, Routes.homeScreen);
+        } else if (state is LoginFailure) {
+          if (Navigator.canPop(context)) {
+            Navigator.pop(context);
+          }
+
+          if (state.error.toLowerCase().contains('password must')) {
+            setState(() {
+              Validators.serverPasswordError = state.error;
+            });
+            _formKey.currentState!.validate();
+          } else {
+            showErrorDialog(context, state.error);
+          }
         }
       },
       child: Column(
@@ -76,7 +87,7 @@ class _LoginFieldsState extends State<LoginFields> {
                     Text('Password', style: AppTextStyle.font13DarkGreyRegular),
                     CustomTextfield(
                       controller: _passwordController,
-                      validator: Validators.notEmpty,
+                      validator: Validators.password,
                       obscureText: true,
                     ),
                     const SizedBox(height: 20),

@@ -1,21 +1,14 @@
 import 'package:flutter/material.dart';
 
-void showLoadingDialog(BuildContext context) {
-  showDialog(
-    context: context,
-    barrierDismissible: false,
-    builder: (_) => const Center(child: CircularProgressIndicator()),
-  );
-}
-
-Future<void> showErrorDialog(BuildContext context) async {
+Future<void> showErrorDialog(BuildContext context, String message) async {
   return showDialog<void>(
     context: context,
     barrierDismissible: false,
     builder: (BuildContext context) {
       return AlertDialog(
-        title: const Text('Login Failed'),
+        title: const Text('Error'),
         content: SingleChildScrollView(
+          child: Text(message, style: const TextStyle(fontSize: 14)),
         ),
         actions: <Widget>[
           TextButton(

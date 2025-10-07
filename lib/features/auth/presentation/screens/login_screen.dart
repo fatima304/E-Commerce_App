@@ -18,7 +18,7 @@ class LoginScreen extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             SizedBox(height: 45),
-            customBackButton(),
+            CustomBackButton(),
             Center(
               child: Text('Welcome', style: AppTextStyle.font28BlackSemiBold),
             ),

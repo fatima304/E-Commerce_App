@@ -1,3 +1,4 @@
+import 'package:ecommerce_app/core/network/api_error_model.dart';
 import 'package:ecommerce_app/features/auth/data/models/login/login_response_model.dart';
 import 'package:meta/meta.dart';
 
@@ -20,6 +21,6 @@ class LoginSuccess extends LoginState {
 }
 
 class LoginFailure extends LoginState {
-  final String message;
-  const LoginFailure(this.message);
+  final String error;
+  const LoginFailure(this.error);
 }

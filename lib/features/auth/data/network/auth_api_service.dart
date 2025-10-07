@@ -1,4 +1,8 @@
 import 'package:dio/dio.dart';
+import 'package:ecommerce_app/features/auth/data/models/register/register_request_model.dart';
+import 'package:ecommerce_app/features/auth/data/models/register/register_response_model.dart';
+import 'package:ecommerce_app/features/auth/data/models/verify_otp/verify_otp_request_model.dart';
+import 'package:ecommerce_app/features/auth/data/models/verify_otp/verify_otp_response_model.dart';
 import 'package:retrofit/retrofit.dart';
 import '../../../../core/network/api_constants.dart';
 import '../models/login/login_request_model.dart';
@@ -13,4 +17,9 @@ abstract class AuthApiService {
   @POST(ApiConstants.loginUrl) 
   Future<LoginResponseModel> login(@Body() LoginRequestModel body);
 
+  @POST(ApiConstants.registerUrl) 
+  Future<RegisterResponseModel> register(@Body() RegisterRequestModel body);
+
+@POST(ApiConstants.verifyEmailUrl) 
+  Future<VerifyOtpResponseModel> verifyOtp(@Body() VerifyOtpRequestModel body);
 }

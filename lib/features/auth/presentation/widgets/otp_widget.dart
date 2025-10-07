@@ -4,11 +4,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
 class OtpVerification extends StatefulWidget {
-  /// number of OTP digits (e.g., 4 or 6)
   final int length;
   final void Function(String)? onCompleted;
 
-  const OtpVerification({super.key, this.length = 4, this.onCompleted});
+  const OtpVerification({super.key, this.length = 6, this.onCompleted});
 
   @override
   State<OtpVerification> createState() => _OtpVerificationState();

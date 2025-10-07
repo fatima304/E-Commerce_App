@@ -14,16 +14,19 @@ class ApiErrorHandler {
           return ApiErrorModel(message: "Connection timeout with the server");
         case DioExceptionType.unknown:
           return ApiErrorModel(
-              message:
-              "Connection to the server failed due to internet connection");
+            message:
+                "Connection to the server failed due to internet connection",
+          );
         case DioExceptionType.receiveTimeout:
           return ApiErrorModel(
-              message: "Receive timeout in connection with the server");
+            message: "Receive timeout in connection with the server",
+          );
         case DioExceptionType.badResponse:
           return _handleError(error.response?.data);
         case DioExceptionType.sendTimeout:
           return ApiErrorModel(
-              message: "Send timeout in connection with the server");
+            message: "Send timeout in connection with the server",
+          );
         default:
           return ApiErrorModel(message: "Something went wrong");
       }
@@ -34,8 +37,23 @@ class ApiErrorHandler {
 }
 
 ApiErrorModel _handleError(dynamic data) {
-  return ApiErrorModel(
-    message: data['meals'] ?? "Unknown error occurred",
-    code: data['code'],
-  );
+  if (data == null) {
+    return ApiErrorModel(message: "Something went wrong");
+  }
+
+  final errors = data['errors'];
+
+  if (errors != null) {
+    if (errors['password'] != null && errors['password'] is List) {
+      final passwordErrors = (errors['password'] as List).join('\n');
+      return ApiErrorModel(message: passwordErrors);
+    }
+
+    if (errors['generalErrors'] != null && errors['generalErrors'] is List) {
+      final generalErrors = (errors['generalErrors'] as List).join('\n');
+      return ApiErrorModel(message: generalErrors);
+    }
+  }
+
+  return ApiErrorModel(message: data['message'] ?? "Something went wrong");
 }
