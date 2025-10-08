@@ -6,12 +6,18 @@ import 'package:ecommerce_app/features/auth/presentation/screens/auth_screen.dar
 import 'package:ecommerce_app/features/auth/presentation/screens/login_screen.dart';
 import 'package:ecommerce_app/features/auth/presentation/screens/register_screen.dart';
 import 'package:ecommerce_app/features/auth/presentation/screens/verify_otp_screen.dart';
+import 'package:ecommerce_app/features/orders/presentation/manager/cart/cart_cubit.dart';
+import 'package:ecommerce_app/features/orders/presentation/manager/coupons/coupon_cubit.dart';
+import 'package:ecommerce_app/features/orders/presentation/manager/address/address_cubit.dart';
+import 'package:ecommerce_app/features/orders/presentation/screens/address_screen.dart';
+import 'package:ecommerce_app/features/orders/presentation/screens/cart_screen.dart';
+import 'package:ecommerce_app/features/orders/presentation/screens/order_confirmation_screen.dart';
 import 'package:ecommerce_app/features/home/data/models/categories/category_model.dart';
 import 'package:ecommerce_app/features/home/data/models/products/product_model.dart';
 import 'package:ecommerce_app/features/home/presentation/manager/category/category_cubit.dart';
 import 'package:ecommerce_app/features/home/presentation/manager/products/products_cubit.dart';
 import 'package:ecommerce_app/features/home/presentation/screens/category_product_screen.dart';
-import 'package:ecommerce_app/features/home/presentation/screens/details_screen.dart';
+import 'package:ecommerce_app/features/details/presentation/screens/details_screen.dart';
 import 'package:ecommerce_app/features/home/presentation/screens/home_screen.dart';
 import 'package:ecommerce_app/features/splash/presentation/screens/splash_screen.dart';
 import 'package:flutter/material.dart';
@@ -19,7 +25,6 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 
 class AppRouting {
   Route? generateRoute(RouteSettings routesSettings) {
-    final arguments = routesSettings.arguments;
     switch (routesSettings.name) {
       case Routes.splashScreen:
         return MaterialPageRoute(builder: (_) => SplashScreen());
@@ -62,10 +67,41 @@ class AppRouting {
           ),
         );
       case Routes.detailsScreen:
-  final product = routesSettings.arguments as ProductModel;
-  return MaterialPageRoute(
-    builder: (_) => DetailsScreen(product: product),
-  );
+        final product = routesSettings.arguments as ProductModel;
+        return MaterialPageRoute(
+          builder: (_) => BlocProvider.value(
+            value: getIt<CartCubit>(),
+            child: DetailsScreen(product: product),
+          ),
+        );
+      case Routes.cartScreen:
+        return MaterialPageRoute(
+          builder: (_) => MultiBlocProvider(
+            providers: [
+              BlocProvider.value(
+                value: getIt<CartCubit>(),
+              ),
+              BlocProvider(
+                create: (context) => getIt<CouponCubit>(),
+              ),
+              BlocProvider(
+                create: (context) => getIt<AddressCubit>()..fetchAddresses(),
+              ),
+            ],
+            child: const CartScreen(),
+          ),
+        );
+ case Routes.addressScreen:
+        return MaterialPageRoute(
+          builder: (_) => BlocProvider.value(
+            value: getIt<AddressCubit>(),
+            child: const AddressScreen(),
+          ),
+        );
+      case Routes.orderConfirmationScreen:
+        return MaterialPageRoute(
+          builder: (_) => const OrderConfirmationScreen(),
+        );
     }
     return null;
   }

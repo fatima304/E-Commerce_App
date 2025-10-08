@@ -1,3 +1,5 @@
+import 'package:ecommerce_app/core/routes/routes.dart';
+import 'package:ecommerce_app/core/theme/app_color.dart';
 import 'package:ecommerce_app/core/theme/app_text_style.dart';
 import 'package:ecommerce_app/features/home/presentation/widgets/search_field.dart';
 import 'package:flutter/material.dart';
@@ -12,6 +14,31 @@ class HomeHeader extends StatelessWidget {
 
       children: [
         SizedBox(height: 100),
+        Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            GestureDetector(
+              onTap: () {
+                Scaffold.of(context).openDrawer();
+              },
+              child: CircleAvatar(
+                radius: 22.5,
+                backgroundColor: AppColors.lightGrey,
+                child: const Icon(Icons.menu, color: AppColors.black),
+              ),
+            ),
+            GestureDetector(
+              onTap: () {
+                Navigator.pushNamed(context, Routes.cartScreen);
+              },
+              child: CircleAvatar(
+                radius: 22.5,
+                backgroundColor: AppColors.lightGrey,
+                child: const Icon(Icons.shopping_bag_outlined, color: AppColors.black),
+              ),
+            ),
+          ],
+        ),
         Text('Hello', style: AppTextStyle.font28BlackSemiBold),
         Text(
           'Welcome to Laza.',

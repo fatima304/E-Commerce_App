@@ -2,10 +2,10 @@ import 'package:ecommerce_app/core/theme/app_color.dart';
 import 'package:ecommerce_app/core/theme/app_text_style.dart';
 import 'package:flutter/material.dart';
 
-class AuthButton extends StatelessWidget {
-  const AuthButton({super.key, required this.onTap, required this.text});
+class MainButton extends StatelessWidget {
+  const MainButton({super.key, required this.onTap, required this.text});
   final String text;
-  final void Function() onTap;
+  final void Function()? onTap;
 
   @override
   Widget build(BuildContext context) {

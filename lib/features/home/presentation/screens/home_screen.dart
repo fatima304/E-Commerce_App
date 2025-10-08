@@ -1,4 +1,5 @@
 import 'package:ecommerce_app/features/home/presentation/widgets/category_section.dart';
+import 'package:ecommerce_app/features/home/presentation/widgets/drawer_menu.dart';
 import 'package:ecommerce_app/features/home/presentation/widgets/home_header.dart';
 import 'package:ecommerce_app/features/home/presentation/widgets/product_gridview.dart';
 import 'package:ecommerce_app/features/home/presentation/widgets/product_section.dart';
@@ -10,6 +11,7 @@ class HomeScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      drawer: const DrawerMenu(),
       body: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 20),
         child: CustomScrollView(

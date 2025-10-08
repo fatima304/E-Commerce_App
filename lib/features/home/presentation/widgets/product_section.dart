@@ -8,18 +8,15 @@ class ProductSection extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return SliverList(
-      delegate: SliverChildListDelegate(
-        [
-          Text(
-            'Products',
-            style: AppTextStyle.font17WhiteMedium.copyWith(
-              color: AppColors.black,
-            ),
+      delegate: SliverChildListDelegate([
+        Text(
+          'Products',
+          style: AppTextStyle.font17WhiteMedium.copyWith(
+            color: AppColors.black,
           ),
-          const SizedBox(height: 15),
-        ],
-      ),
+        ),
+        const SizedBox(height: 15),
+      ]),
     );
   }
 }
-

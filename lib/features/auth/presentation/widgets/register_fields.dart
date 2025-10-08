@@ -140,7 +140,7 @@ class _RegisterFieldsState extends State<RegisterFields> {
               ),
             ),
           ),
-          AuthButton(text: 'Sign Up', onTap: _submitForm),
+          MainButton(text: 'Sign Up', onTap: _submitForm),
         ],
       ),
     );

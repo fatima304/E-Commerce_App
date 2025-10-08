@@ -1,16 +1,17 @@
-import 'package:ecommerce_app/core/theme/app_color.dart';
 import 'package:flutter/material.dart';
 
 class CustomTextfield extends StatelessWidget {
   final TextEditingController controller;
   final String? Function(String?)? validator;
   final bool obscureText;
+  final String? hintText;
 
   const CustomTextfield({
     super.key,
     required this.controller,
     this.validator,
     this.obscureText = false,
+    this.hintText,
   });
 
   @override
@@ -19,13 +20,10 @@ class CustomTextfield extends StatelessWidget {
       controller: controller,
       validator: validator,
       obscureText: obscureText,
-      decoration: const InputDecoration(
-        enabledBorder: UnderlineInputBorder(
-          borderSide: BorderSide(color: AppColors.grey, width: 1),
-        ),
-        focusedBorder: UnderlineInputBorder(
-          borderSide: BorderSide(color: AppColors.grey, width: 1),
-        ),
+      decoration: InputDecoration(
+        hintText: hintText,
+        enabledBorder:  InputBorder.none,
+        focusedBorder: InputBorder.none,
       ),
     );
   }

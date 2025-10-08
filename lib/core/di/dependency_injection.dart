@@ -7,6 +7,11 @@ import 'package:ecommerce_app/features/home/data/network/api_service.dart';
 import 'package:ecommerce_app/features/home/domain/repo/home_repo.dart';
 import 'package:ecommerce_app/features/home/presentation/manager/category/category_cubit.dart';
 import 'package:ecommerce_app/features/home/presentation/manager/products/products_cubit.dart';
+import 'package:ecommerce_app/features/orders/data/network/cart_api_service.dart';
+import 'package:ecommerce_app/features/orders/domain/repo/cart_repo.dart';
+import 'package:ecommerce_app/features/orders/presentation/manager/cart/cart_cubit.dart';
+import 'package:ecommerce_app/features/orders/presentation/manager/coupons/coupon_cubit.dart';
+import 'package:ecommerce_app/features/orders/presentation/manager/address/address_cubit.dart';
 import 'package:get_it/get_it.dart';
 import 'package:dio/dio.dart';
 
@@ -53,5 +58,26 @@ Future<void> setupServiceLocator() async {
 
   // Products Cubit
   getIt.registerFactory<ProductCubit>(() => ProductCubit(getIt<HomeRepository>()));
+
+  // Cart Api Service
+  getIt.registerLazySingleton<CartApiService>(
+    () => CartApiService(getIt<Dio>()),
+  );
+
+  // Cart Repo
+  getIt.registerLazySingleton<CartRepository>(
+    () => CartRepositoryImpl(getIt<CartApiService>()),
+  );
+
+  // Cart Cubit (shared instance across app)
+  getIt.registerLazySingleton<CartCubit>(
+    () => CartCubit(getIt<CartRepository>()),
+  );
+
+  // Coupon Cubit
+  getIt.registerFactory<CouponCubit>(() => CouponCubit(getIt<CartRepository>()));
+
+  // Address Cubit
+  getIt.registerFactory<AddressCubit>(() => AddressCubit(getIt<CartRepository>()));
 
 }

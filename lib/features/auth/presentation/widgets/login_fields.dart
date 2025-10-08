@@ -119,7 +119,7 @@ class _LoginFieldsState extends State<LoginFields> {
             ),
           ),
           const SizedBox(height: 20),
-          AuthButton(text: 'Login', onTap: _submitForm),
+          MainButton(text: 'Login', onTap: _submitForm),
         ],
       ),
     );

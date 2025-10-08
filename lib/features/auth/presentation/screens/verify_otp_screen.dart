@@ -53,7 +53,7 @@ class _VerifyOtpScreenState extends State<VerifyOtpScreen> {
               },
             ),
             const Spacer(),
-            AuthButton(
+            MainButton(
               text: 'Confirm Code',
               onTap: () {
                 if (_otpCode != null && _otpCode!.length == 6) {

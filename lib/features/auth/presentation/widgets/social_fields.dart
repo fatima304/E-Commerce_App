@@ -44,7 +44,7 @@ class AuthFields extends StatelessWidget {
           ),
         ),
         const SizedBox(height: 10),
-        AuthButton(
+        MainButton(
           text: 'Create an Account',
           onTap: () {
             Navigator.pushNamed(context, Routes.registerScreen);
