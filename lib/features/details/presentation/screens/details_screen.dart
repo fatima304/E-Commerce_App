@@ -48,8 +48,7 @@ class DetailsScreen extends StatelessWidget {
                   onTap: isLoading
                       ? null
                       : () {
-                          // For adding new product to cart, use POST
-                          context.read<CartCubit>().addItem(product.id, quantity);
+                           context.read<CartCubit>().addItem(product.id, quantity);
                         },
                   text: isLoading ? 'Adding...' : 'Add to Cart',
                 );

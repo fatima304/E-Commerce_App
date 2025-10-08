@@ -44,7 +44,6 @@ class CheckoutButton extends StatelessWidget {
             TextButton(
               onPressed: () {
                 Navigator.of(context).pop();
-                // Navigate to order confirmation screen
                 Navigator.pushNamed(context, Routes.orderConfirmationScreen);
               },
               child: const Text('Proceed'),

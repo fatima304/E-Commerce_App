@@ -5,6 +5,7 @@ class ApiConstants {
   static const String registerUrl = '$authUrl/register';
   static const String verifyEmailUrl = '$authUrl/verify-email';
   static const String refreshTokenUrl = '$authUrl/refresh-token';
+  static const String forgetPassUrl = '$authUrl/forgot-password';
   static const String categoriesUrl = '/categories';
   static const String productsUrl = '/products';
   static const String getcartUrl = '/cart';

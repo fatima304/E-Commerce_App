@@ -1,7 +1,6 @@
 import 'package:ecommerce_app/core/widgets/custom_textfield.dart';
 import 'package:flutter/material.dart';
 
-/// Widget for coupon input field
 class CouponInputField extends StatelessWidget {
   final TextEditingController controller;
 

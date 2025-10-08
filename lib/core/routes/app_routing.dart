@@ -3,6 +3,7 @@ import 'package:ecommerce_app/core/routes/routes.dart';
 import 'package:ecommerce_app/features/auth/data/models/register/register_request_model.dart';
 import 'package:ecommerce_app/features/auth/presentation/manager/verify_otp/verify_otp_cubit.dart';
 import 'package:ecommerce_app/features/auth/presentation/screens/auth_screen.dart';
+import 'package:ecommerce_app/features/auth/presentation/screens/forgot_pass.dart';
 import 'package:ecommerce_app/features/auth/presentation/screens/login_screen.dart';
 import 'package:ecommerce_app/features/auth/presentation/screens/register_screen.dart';
 import 'package:ecommerce_app/features/auth/presentation/screens/verify_otp_screen.dart';
@@ -12,11 +13,9 @@ import 'package:ecommerce_app/features/orders/presentation/manager/address/addre
 import 'package:ecommerce_app/features/orders/presentation/screens/address_screen.dart';
 import 'package:ecommerce_app/features/orders/presentation/screens/cart_screen.dart';
 import 'package:ecommerce_app/features/orders/presentation/screens/order_confirmation_screen.dart';
-import 'package:ecommerce_app/features/home/data/models/categories/category_model.dart';
 import 'package:ecommerce_app/features/home/data/models/products/product_model.dart';
 import 'package:ecommerce_app/features/home/presentation/manager/category/category_cubit.dart';
 import 'package:ecommerce_app/features/home/presentation/manager/products/products_cubit.dart';
-import 'package:ecommerce_app/features/home/presentation/screens/category_product_screen.dart';
 import 'package:ecommerce_app/features/details/presentation/screens/details_screen.dart';
 import 'package:ecommerce_app/features/home/presentation/screens/home_screen.dart';
 import 'package:ecommerce_app/features/splash/presentation/screens/splash_screen.dart';
@@ -32,6 +31,8 @@ class AppRouting {
         return MaterialPageRoute(builder: (_) => AuthScreen());
       case Routes.loginScreen:
         return MaterialPageRoute(builder: (_) => LoginScreen());
+       case Routes.forgotPassScreen:
+        return MaterialPageRoute(builder: (_) => ForgotPasswordScreen());
       case Routes.registerScreen:
         return MaterialPageRoute(builder: (_) => RegisterScreen());
       case Routes.verifyOtpScreen:
@@ -43,14 +44,7 @@ class AppRouting {
           ),
         );
 
-      case Routes.categoryScreen:
-        final category = routesSettings.arguments as CategoryModel;
-        return MaterialPageRoute(
-          builder: (_) => BlocProvider(
-            create: (context) => getIt<ProductCubit>(),
-            child: CategoryProductScreen(category: category),
-          ),
-        );
+   
 
       case Routes.homeScreen:
         return MaterialPageRoute(

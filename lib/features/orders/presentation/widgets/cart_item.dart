@@ -1,4 +1,5 @@
 import 'package:ecommerce_app/core/theme/app_text_style.dart';
+import 'package:ecommerce_app/features/details/presentation/widgets/quantity_selector.dart';
 import 'package:flutter/material.dart';
 
 class CartItem extends StatelessWidget {
@@ -67,7 +68,7 @@ class CartItem extends StatelessWidget {
                 const SizedBox(height: 8),
                 Row(
                   children: [
-                    _QuantityButton(icon: Icons.remove, onTap: onDecrement),
+                    QuantityButton(icon: Icons.remove, onTap: onDecrement),
                     Padding(
                       padding: const EdgeInsets.symmetric(horizontal: 12),
                       child: Text(
@@ -77,7 +78,7 @@ class CartItem extends StatelessWidget {
                         ),
                       ),
                     ),
-                    _QuantityButton(icon: Icons.add, onTap: onIncrement),
+                    QuantityButton(icon: Icons.add, onTap: onIncrement),
                   ],
                 ),
                 const SizedBox(height: 8),
@@ -89,30 +90,6 @@ class CartItem extends StatelessWidget {
             ),
           ),
         ],
-      ),
-    );
-  }
-}
-
-class _QuantityButton extends StatelessWidget {
-  final IconData icon;
-  final VoidCallback onTap;
-
-  const _QuantityButton({required this.icon, required this.onTap});
-
-  @override
-  Widget build(BuildContext context) {
-    return InkWell(
-      onTap: onTap,
-      borderRadius: BorderRadius.circular(6),
-      child: Container(
-        width: 28,
-        height: 28,
-        decoration: BoxDecoration(
-          border: Border.all(color: Colors.grey),
-          borderRadius: BorderRadius.circular(6),
-        ),
-        child: Icon(icon, size: 18),
       ),
     );
   }

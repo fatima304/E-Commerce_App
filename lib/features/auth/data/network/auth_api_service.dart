@@ -1,4 +1,6 @@
 import 'package:dio/dio.dart';
+import 'package:ecommerce_app/features/auth/data/models/forget_pass/forgot_password_request_model.dart';
+import 'package:ecommerce_app/features/auth/data/models/forget_pass/forgot_password_response_model.dart';
 import 'package:ecommerce_app/features/auth/data/models/register/register_request_model.dart';
 import 'package:ecommerce_app/features/auth/data/models/register/register_response_model.dart';
 import 'package:ecommerce_app/features/auth/data/models/verify_otp/verify_otp_request_model.dart';
@@ -22,4 +24,9 @@ abstract class AuthApiService {
 
 @POST(ApiConstants.verifyEmailUrl) 
   Future<VerifyOtpResponseModel> verifyOtp(@Body() VerifyOtpRequestModel body);
+
+@POST(ApiConstants.forgetPassUrl)
+  Future<ForgotPasswordResponseModel> forgotPassword(
+    @Body() ForgotPasswordRequestModel body,
+  );
 }

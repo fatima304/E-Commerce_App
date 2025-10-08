@@ -3,7 +3,6 @@ import 'package:ecommerce_app/core/theme/app_text_style.dart';
 import 'package:ecommerce_app/features/orders/data/models/coupon/coupon_model.dart';
 import 'package:flutter/material.dart';
 
-/// Widget for displaying an applied coupon
 class AppliedCouponCard extends StatelessWidget {
   final CouponModel coupon;
 

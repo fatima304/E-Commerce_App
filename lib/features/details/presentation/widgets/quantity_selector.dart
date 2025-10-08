@@ -19,7 +19,7 @@ class QuantitySelector extends StatelessWidget {
     return Row(
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
-        _QuantityButton(icon: Icons.remove, onTap: onDecrement),
+        QuantityButton(icon: Icons.remove, onTap: onDecrement),
         Padding(
           padding: const EdgeInsets.symmetric(horizontal: 16),
           child: Text(
@@ -27,14 +27,14 @@ class QuantitySelector extends StatelessWidget {
             style: AppTextStyle.font28BlackSemiBold.copyWith(fontSize: 22),
           ),
         ),
-        _QuantityButton(icon: Icons.add, onTap: onIncrement),
+        QuantityButton(icon: Icons.add, onTap: onIncrement),
       ],
     );
   }
 }
 
-class _QuantityButton extends StatelessWidget {
-  const _QuantityButton({required this.icon, required this.onTap});
+class QuantityButton extends StatelessWidget {
+  const QuantityButton({required this.icon, required this.onTap});
   final IconData icon;
   final VoidCallback onTap;
 

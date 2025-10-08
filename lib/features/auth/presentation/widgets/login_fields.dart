@@ -91,10 +91,17 @@ class _LoginFieldsState extends State<LoginFields> {
                       obscureText: true,
                     ),
                     const SizedBox(height: 20),
-                    Text(
-                      'Forgot Password?',
-                      style: AppTextStyle.font15RedMedium,
-                      textAlign: TextAlign.end,
+                    TextButton(
+                      onPressed: () {
+                        Navigator.pushNamed(context, Routes.forgotPassScreen);
+                      },
+                      child: Align(
+                        alignment: Alignment.topRight,
+                        child: Text(
+                          'Forgot Password?',
+                          style: AppTextStyle.font15RedMedium,
+                        ),
+                      ),
                     ),
                   ],
                 ),

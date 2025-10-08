@@ -1,7 +1,6 @@
 import 'package:ecommerce_app/core/theme/app_color.dart';
 import 'package:flutter/material.dart';
 
-/// Widget for the apply coupon button
 class ApplyCouponButton extends StatelessWidget {
   final bool isLoading;
   final VoidCallback onApply;
