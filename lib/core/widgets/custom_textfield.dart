@@ -1,3 +1,4 @@
+import 'package:ecommerce_app/core/theme/app_color.dart';
 import 'package:flutter/material.dart';
 
 class CustomTextfield extends StatelessWidget {
@@ -22,8 +23,12 @@ class CustomTextfield extends StatelessWidget {
       obscureText: obscureText,
       decoration: InputDecoration(
         hintText: hintText,
-        enabledBorder:  InputBorder.none,
-        focusedBorder: InputBorder.none,
+        enabledBorder: UnderlineInputBorder(
+          borderSide: BorderSide(color: AppColors.grey),
+        ),
+        focusedBorder: const UnderlineInputBorder(
+          borderSide: BorderSide(color: AppColors.grey),
+        ),
       ),
     );
   }

@@ -1,6 +1,9 @@
+import 'package:ecommerce_app/core/di/dependency_injection.dart';
 import 'package:ecommerce_app/core/helper/app_images.dart';
 import 'package:ecommerce_app/core/theme/app_text_style.dart';
 import 'package:ecommerce_app/core/widgets/custom_back_button.dart';
+import 'package:ecommerce_app/features/orders/presentation/manager/address/address_cubit.dart';
+import 'package:ecommerce_app/features/orders/presentation/manager/coupons/coupon_cubit.dart';
 import 'package:ecommerce_app/features/orders/presentation/widgets/cart_item.dart';
 import 'package:ecommerce_app/features/orders/presentation/widgets/checkout_button.dart';
 import 'package:ecommerce_app/features/orders/presentation/widgets/coupon_section.dart';
@@ -16,45 +19,54 @@ class CartScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        centerTitle: true,
-        leading: const CustomBackButton(),
-        title: Text(
-          'Cart',
-          style: AppTextStyle.font17BlackSemiBold.copyWith(fontSize: 20),
-        ),
-      ),
-      body: BlocConsumer<CartCubit, CartState>(
-        listener: (context, state) {
-          if (state is CartFailure) {
-            ScaffoldMessenger.of(
-              context,
-            ).showSnackBar(SnackBar(content: Text(state.error)));
-          } else if (state is CartSuccess) {
-            ScaffoldMessenger.of(
-              context,
-            ).showSnackBar(SnackBar(content: Text(state.message)));
-          }
-        },
-        builder: (context, state) {
-          if (state is CartLoaded && state.cart.cartItems.isEmpty) {
-            return Center(
-              child: Image.asset(AppImages.emptyCart, width: 700, height: 700),
-            );
-          }
-          return CustomScrollView(
-            slivers: [
-              _buildCartItemsSliver(context, state),
-              const SliverToBoxAdapter(child: DeliveryAddressSection()),
-              const SliverToBoxAdapter(child: CouponSection()),
-              const SliverToBoxAdapter(child: TotalPriceSection()),
-              const SliverToBoxAdapter(child: CheckoutButton()),
-              // Bottom padding
+    return MultiBlocProvider(
+            providers: [
+              BlocProvider.value(value: getIt<CartCubit>()),
+              BlocProvider(create: (context) => getIt<CouponCubit>()),
+              BlocProvider(
+                create: (context) => getIt<AddressCubit>()..fetchAddresses(),
+              ),
             ],
-          );
-        },
-      ),
+            child: Scaffold(
+          appBar: AppBar(
+            centerTitle: true,
+            leading: const CustomBackButton(),
+            title: Text(
+              'Cart',
+              style: AppTextStyle.font17BlackSemiBold.copyWith(fontSize: 20),
+            ),
+          ),
+          body: BlocConsumer<CartCubit, CartState>(
+            listener: (context, state) {
+              if (state is CartFailure) {
+                ScaffoldMessenger.of(
+                  context,
+                ).showSnackBar(SnackBar(content: Text(state.error)));
+              } else if (state is CartSuccess) {
+                ScaffoldMessenger.of(
+                  context,
+                ).showSnackBar(SnackBar(content: Text(state.message)));
+              }
+            },
+            builder: (context, state) {
+              if (state is CartLoaded && state.cart.cartItems.isEmpty) {
+                return Center(
+                  child: Image.asset(AppImages.emptyCart, width: 700, height: 700),
+                );
+              }
+              return CustomScrollView(
+                slivers: [
+                  _buildCartItemsSliver(context, state),
+                  const SliverToBoxAdapter(child: DeliveryAddressSection()),
+                  const SliverToBoxAdapter(child: CouponSection()),
+                  const SliverToBoxAdapter(child: TotalPriceSection()),
+                  const SliverToBoxAdapter(child: CheckoutButton()),
+                  // Bottom padding
+                ],
+              );
+            },
+          ),
+        ),
     );
   }
 

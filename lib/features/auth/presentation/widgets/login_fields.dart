@@ -52,7 +52,7 @@ class _LoginFieldsState extends State<LoginFields> {
           );
         } else if (state is LoginSuccess) {
           Navigator.pop(context);
-          Navigator.pushNamed(context, Routes.homeScreen);
+          Navigator.pushNamed(context, Routes.bottomNavBar);
         } else if (state is LoginFailure) {
           if (Navigator.canPop(context)) {
             Navigator.pop(context);

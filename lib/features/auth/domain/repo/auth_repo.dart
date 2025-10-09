@@ -15,6 +15,8 @@ abstract class AuthRepository {
   Future<ForgotPasswordResponseModel> forgotPassword(
     ForgotPasswordRequestModel request,
   );
+    Future<void> logout(); 
+
 }
 
 class AuthRepositoryImpl implements AuthRepository {
@@ -43,4 +45,8 @@ class AuthRepositoryImpl implements AuthRepository {
   ) {
     return _authApiService.forgotPassword(request);
   }
+  @override
+Future<void> logout() {
+  return _authApiService.logout();
+}
 }

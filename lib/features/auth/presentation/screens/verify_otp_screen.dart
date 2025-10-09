@@ -31,7 +31,7 @@ class _VerifyOtpScreenState extends State<VerifyOtpScreen> {
       body: BlocListener<VerifyOtpCubit, VerifyOtpState>(
         listener: (context, state) {
           if (state is VerifyOtpSuccess) {
-            Navigator.pushReplacementNamed(context, Routes.homeScreen);
+            Navigator.pushReplacementNamed(context, Routes.bottomNavBar);
           } else if (state is VerifyOtpFailure) {
             ScaffoldMessenger.of(
               context,

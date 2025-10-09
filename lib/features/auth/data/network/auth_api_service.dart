@@ -29,4 +29,8 @@ abstract class AuthApiService {
   Future<ForgotPasswordResponseModel> forgotPassword(
     @Body() ForgotPasswordRequestModel body,
   );
+
+@POST(ApiConstants.logoutUrl)
+Future<void> logout();
+
 }

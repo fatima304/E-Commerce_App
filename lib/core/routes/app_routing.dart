@@ -1,5 +1,6 @@
 import 'package:ecommerce_app/core/di/dependency_injection.dart';
 import 'package:ecommerce_app/core/routes/routes.dart';
+import 'package:ecommerce_app/core/widgets/bottom_navbar.dart';
 import 'package:ecommerce_app/features/auth/data/models/register/register_request_model.dart';
 import 'package:ecommerce_app/features/auth/presentation/manager/verify_otp/verify_otp_cubit.dart';
 import 'package:ecommerce_app/features/auth/presentation/screens/auth_screen.dart';
@@ -14,11 +15,9 @@ import 'package:ecommerce_app/features/orders/presentation/screens/address_scree
 import 'package:ecommerce_app/features/orders/presentation/screens/cart_screen.dart';
 import 'package:ecommerce_app/features/orders/presentation/screens/order_confirmation_screen.dart';
 import 'package:ecommerce_app/features/home/data/models/products/product_model.dart';
-import 'package:ecommerce_app/features/home/presentation/manager/category/category_cubit.dart';
-import 'package:ecommerce_app/features/home/presentation/manager/products/products_cubit.dart';
 import 'package:ecommerce_app/features/details/presentation/screens/details_screen.dart';
-import 'package:ecommerce_app/features/home/presentation/screens/home_screen.dart';
 import 'package:ecommerce_app/features/splash/presentation/screens/splash_screen.dart';
+import 'package:ecommerce_app/features/wishlist/presentation/screens/wishlist_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -27,12 +26,16 @@ class AppRouting {
     switch (routesSettings.name) {
       case Routes.splashScreen:
         return MaterialPageRoute(builder: (_) => SplashScreen());
+      case Routes.bottomNavBar:
+        return MaterialPageRoute(builder: (_) => CustomBottomNavBar());
       case Routes.authScreen:
         return MaterialPageRoute(builder: (_) => AuthScreen());
       case Routes.loginScreen:
         return MaterialPageRoute(builder: (_) => LoginScreen());
-       case Routes.forgotPassScreen:
+      case Routes.forgotPassScreen:
         return MaterialPageRoute(builder: (_) => ForgotPasswordScreen());
+      case Routes.wishlistScreen:
+        return MaterialPageRoute(builder: (_) => WishlistScreen());
       case Routes.registerScreen:
         return MaterialPageRoute(builder: (_) => RegisterScreen());
       case Routes.verifyOtpScreen:
@@ -44,22 +47,6 @@ class AppRouting {
           ),
         );
 
-   
-
-      case Routes.homeScreen:
-        return MaterialPageRoute(
-          builder: (_) => MultiBlocProvider(
-            providers: [
-              BlocProvider(
-                create: (context) => getIt<CategoryCubit>()..fetchCategories(),
-              ),
-              BlocProvider(
-                create: (context) => getIt<ProductCubit>()..fetchProducts(),
-              ),
-            ],
-            child: HomeScreen(),
-          ),
-        );
       case Routes.detailsScreen:
         final product = routesSettings.arguments as ProductModel;
         return MaterialPageRoute(
@@ -72,12 +59,8 @@ class AppRouting {
         return MaterialPageRoute(
           builder: (_) => MultiBlocProvider(
             providers: [
-              BlocProvider.value(
-                value: getIt<CartCubit>(),
-              ),
-              BlocProvider(
-                create: (context) => getIt<CouponCubit>(),
-              ),
+              BlocProvider.value(value: getIt<CartCubit>()),
+              BlocProvider(create: (context) => getIt<CouponCubit>()),
               BlocProvider(
                 create: (context) => getIt<AddressCubit>()..fetchAddresses(),
               ),
@@ -85,7 +68,7 @@ class AppRouting {
             child: const CartScreen(),
           ),
         );
- case Routes.addressScreen:
+      case Routes.addressScreen:
         return MaterialPageRoute(
           builder: (_) => BlocProvider.value(
             value: getIt<AddressCubit>(),

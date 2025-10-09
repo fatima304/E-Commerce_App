@@ -63,7 +63,11 @@ class DioFactory {
     final prefs = await SharedPreferences.getInstance();
     return prefs.getString('refreshToken');
   }
-
+ static Future<void> clearTokens() async {
+    final prefs = await SharedPreferences.getInstance();
+    await prefs.remove('accessToken');
+    await prefs.remove('refreshToken');
+  }
   static Future<void> saveTokens(String accessToken, String refreshToken) async {
     final prefs = await SharedPreferences.getInstance();
     await prefs.setString('accessToken', accessToken);

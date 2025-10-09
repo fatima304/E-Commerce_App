@@ -2,6 +2,7 @@ import 'package:ecommerce_app/features/auth/data/network/auth_api_service.dart';
 import 'package:ecommerce_app/features/auth/domain/repo/auth_repo.dart';
 import 'package:ecommerce_app/features/auth/presentation/manager/forget_pass/forget_password_cubit.dart';
 import 'package:ecommerce_app/features/auth/presentation/manager/login/login_cubit.dart';
+import 'package:ecommerce_app/features/auth/presentation/manager/logout/logout_cubit.dart';
 import 'package:ecommerce_app/features/auth/presentation/manager/register/register_cubit.dart';
 import 'package:ecommerce_app/features/auth/presentation/manager/verify_otp/verify_otp_cubit.dart';
 import 'package:ecommerce_app/features/home/data/network/api_service.dart';
@@ -46,6 +47,10 @@ Future<void> setupServiceLocator() async {
 
   // Forget Password Cubit
   getIt.registerFactory<ForgotPasswordCubit>(() => ForgotPasswordCubit(getIt<AuthRepository>()));
+  
+    // Logout Cubit
+  getIt.registerFactory<LogoutCubit>(() => LogoutCubit(getIt<AuthRepository>()));
+  
     //Api Service
   getIt.registerLazySingleton<HomeApiService>(
     () => HomeApiService(getIt<Dio>()),

@@ -34,7 +34,7 @@ class QuantitySelector extends StatelessWidget {
 }
 
 class QuantityButton extends StatelessWidget {
-  const QuantityButton({required this.icon, required this.onTap});
+  const QuantityButton({super.key, required this.icon, required this.onTap});
   final IconData icon;
   final VoidCallback onTap;
 
