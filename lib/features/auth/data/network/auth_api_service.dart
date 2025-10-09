@@ -22,8 +22,9 @@ abstract class AuthApiService {
   @POST(ApiConstants.registerUrl) 
   Future<RegisterResponseModel> register(@Body() RegisterRequestModel body);
 
-@POST(ApiConstants.verifyEmailUrl) 
-  Future<VerifyOtpResponseModel> verifyOtp(@Body() VerifyOtpRequestModel body);
+@POST(ApiConstants.verifyEmailUrl)
+Future<dynamic> verifyOtpRaw(@Body() VerifyOtpRequestModel body);
+
 
 @POST(ApiConstants.forgetPassUrl)
   Future<ForgotPasswordResponseModel> forgotPassword(

@@ -56,20 +56,15 @@ class _OtpVerificationState extends State<OtpVerification> {
     }
 
     final code = _controllers.map((c) => c.text).join();
-    if (!code.contains('') &&
-        code.length == widget.length &&
-        !code.contains(' ')) {
+    if (code.length == widget.length && !code.contains(' ')) {
       widget.onCompleted?.call(code);
     }
   }
 
   Widget _buildBox(int index) {
-    const double boxWidth = 77;
-    const double boxHeight = 98;
-
     return Container(
-      width: boxWidth,
-      height: boxHeight,
+      width: 55,
+      height: 60,
       margin: const EdgeInsets.symmetric(horizontal: 6),
       decoration: BoxDecoration(
         color: AppColors.white,

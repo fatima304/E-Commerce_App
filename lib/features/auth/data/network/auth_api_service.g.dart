@@ -78,13 +78,13 @@ class _AuthApiService implements AuthApiService {
   }
 
   @override
-  Future<VerifyOtpResponseModel> verifyOtp(VerifyOtpRequestModel body) async {
+  Future<dynamic> verifyOtpRaw(VerifyOtpRequestModel body) async {
     final _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
     final _headers = <String, dynamic>{};
     final _data = <String, dynamic>{};
     _data.addAll(body.toJson());
-    final _options = _setStreamType<VerifyOtpResponseModel>(
+    final _options = _setStreamType<dynamic>(
       Options(method: 'POST', headers: _headers, extra: _extra)
           .compose(
             _dio.options,
@@ -94,14 +94,8 @@ class _AuthApiService implements AuthApiService {
           )
           .copyWith(baseUrl: _combineBaseUrls(_dio.options.baseUrl, baseUrl)),
     );
-    final _result = await _dio.fetch<Map<String, dynamic>>(_options);
-    late VerifyOtpResponseModel _value;
-    try {
-      _value = VerifyOtpResponseModel.fromJson(_result.data!);
-    } on Object catch (e, s) {
-      errorLogger?.logError(e, s, _options);
-      rethrow;
-    }
+    final _result = await _dio.fetch(_options);
+    final _value = _result.data;
     return _value;
   }
 

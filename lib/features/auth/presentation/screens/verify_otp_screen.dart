@@ -23,6 +23,37 @@ class VerifyOtpScreen extends StatefulWidget {
 class _VerifyOtpScreenState extends State<VerifyOtpScreen> {
   String? _otpCode;
 
+  Future<void> _showSuccessDialog(BuildContext context) async {
+    return showDialog<void>(
+      context: context,
+      barrierDismissible: false,
+      builder: (BuildContext dialogContext) {
+        return AlertDialog(
+          title: const Text(
+            'Registration Successful',
+            style: TextStyle(fontWeight: FontWeight.bold),
+          ),
+          content: const Text(
+            'Your account has been verified successfully.\nPlease log in to continue.',
+            style: TextStyle(fontSize: 14),
+          ),
+          actions: <Widget>[
+            TextButton(
+              child: const Text('OK'),
+              onPressed: () {
+                Navigator.of(dialogContext).pop(); 
+                Navigator.pushReplacementNamed(
+                  context,
+                  Routes.loginScreen,
+                ); // Navigate to login
+              },
+            ),
+          ],
+        );
+      },
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     final email = widget.userModel.email;
@@ -31,7 +62,7 @@ class _VerifyOtpScreenState extends State<VerifyOtpScreen> {
       body: BlocListener<VerifyOtpCubit, VerifyOtpState>(
         listener: (context, state) {
           if (state is VerifyOtpSuccess) {
-            Navigator.pushReplacementNamed(context, Routes.bottomNavBar);
+            _showSuccessDialog(context); // ✅ عرض الرسالة بدل الانتقال مباشرة
           } else if (state is VerifyOtpFailure) {
             ScaffoldMessenger.of(
               context,

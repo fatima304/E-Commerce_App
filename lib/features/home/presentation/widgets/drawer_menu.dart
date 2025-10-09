@@ -1,4 +1,5 @@
 import 'dart:developer';
+import 'package:ecommerce_app/core/helper/alert_dialog.dart';
 import 'package:ecommerce_app/core/theme/app_color.dart';
 import 'package:ecommerce_app/core/theme/app_text_style.dart';
 import 'package:ecommerce_app/features/auth/presentation/manager/logout/logout_cubit.dart';
@@ -7,6 +8,7 @@ import 'package:ecommerce_app/features/auth/presentation/manager/logout/logout_s
 import 'package:ecommerce_app/features/home/presentation/widgets/drawer_items.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+
 import 'drawer_header.dart';
 
 class DrawerMenu extends StatelessWidget {
@@ -39,7 +41,6 @@ class DrawerMenu extends StatelessWidget {
             );
           } else if (state is LogoutFailure) {
             log('Failure');
-
             ScaffoldMessenger.of(
               context,
             ).showSnackBar(SnackBar(content: Text(state.error)));
@@ -56,8 +57,17 @@ class DrawerMenu extends StatelessWidget {
             ),
             onTap: state is LogoutLoading
                 ? null
-                : () {
-                    context.read<LogoutCubit>().logout();
+                : () async {
+                    final confirm = await showConfirmationDialog(
+                      context: context,
+                      title: 'Logout Confirmation',
+                      message: 'Are you sure you want to log out?',
+                      confirmText: 'Log Out',
+                      confirmColor: Colors.red,
+                    );
+                    if (confirm == true) {
+                      context.read<LogoutCubit>().logout();
+                    }
                   },
             trailing: state is LogoutLoading
                 ? const SizedBox(

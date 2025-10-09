@@ -34,10 +34,23 @@ class AuthRepositoryImpl implements AuthRepository {
     return _authApiService.register(registerRequest);
   }
 
-  @override
-  Future<VerifyOtpResponseModel> verifyOtp(VerifyOtpRequestModel otpRequest) {
-    return _authApiService.verifyOtp(otpRequest);
+ @override
+Future<VerifyOtpResponseModel> verifyOtp(VerifyOtpRequestModel otpRequest) async {
+  final response = await _authApiService.verifyOtpRaw(otpRequest);
+
+  if (response is String) {
+     return VerifyOtpResponseModel(
+      statusCode: 200,
+      message: response,
+      errors: null,
+    );
+  } else if (response is Map<String, dynamic>) {
+    return VerifyOtpResponseModel.fromJson(response);
+  } else {
+    throw Exception('Unexpected response format');
   }
+}
+
 
     @override
   Future<ForgotPasswordResponseModel> forgotPassword(
