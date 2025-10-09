@@ -19,20 +19,20 @@ Based on the design from Figma, the app likely includes:
 
 ## 🌐 API Endpoints
 
-| Feature                  | Method   | Endpoint                          | Description                                  |
-|---------------------------|----------|------------------------------------|-----------------------------------------------|
-| Register                  | POST     | `/auth/register`                  | Create a new user account                     |
-| Login                     | POST     | `/auth/login`                     | Log in with email and password                |
-| OTP Verification          | POST     | `/auth/verify-otp`                | Verify user email with OTP code              |
-| Get Products              | GET      | `/products`                       | Retrieve all available products               |
-| Get Categories            | GET      | `/categories`                     | Retrieve all product categories               |
-| Get Products by Category  | GET      | `/categories/{id}/products`      | Retrieve products belonging to a category     |
-| Get Product Details       | GET      | `/products/{id}`                  | Retrieve details of a specific product        |
-| Wishlist - Add / Get      | POST/GET | `/wishlist`                       | Add to or retrieve wishlist                   |
-| Cart - Add / Get         | POST/GET | `/cart`                           | Add to or retrieve cart items                 |
-| Cart - Update Item        | PUT/PATCH| `/cart/{id}`                      | Update quantity of an item in the cart        |
-| Cart - Remove Item        | DELETE   | `/cart/{id}`                      | Remove an item from the cart                  |
-| Checkout / Place Order    | POST     | `/orders/checkout`               | Complete the purchase process                 |
-| Order History             | GET      | `/orders`                        | Retrieve user's previous orders               |
-| Order Details             | GET      | `/orders/{id}`                   | Retrieve details of a specific order          |
+| Feature                  | Method        | Endpoint                                     | Description                                  |
+|---------------------------|---------------|-----------------------------------------------|-----------------------------------------------|
+| Register                  | POST          | `/auth/register`                             | Create a new user account                     |
+| Login                     | POST          | `/auth/login`                                | Log in with email and password                |
+| Verify Email (OTP)        | POST          | `/auth/verify-email`                         | Verify user email with OTP code               |
+| Refresh Token             | POST          | `/auth/refresh-token`                        | Refresh user authentication token             |
+| Forgot Password           | POST          | `/auth/forgot-password`                      | Request password reset                        |
+| Logout                    | POST          | `/auth/logout`                               | Log out the current user                      |
+| Get Categories            | GET           | `/categories`                                | Retrieve all product categories               |
+| Get Products              | GET           | `/products`                                  | Retrieve all available products               |
+| Get Cart                  | GET           | `/cart`                                     | Retrieve all items in the user's cart         |
+| Add Item to Cart          | POST          | `/cart/items`                               | Add a new item to the cart                    |
+| Update / Delete Cart Item | PUT / DELETE | `/cart/items/{Id}`                          | Update or remove an item in the cart          |
+| Get Coupons               | GET           | `/coupons`                                  | Retrieve available coupons                    |
+| Manage Addresses          | GET / POST    | `/addresses`                                | Retrieve or add shipping addresses            |
 
+> 📝 **Base URL:** `https://accessories-eshop.runasp.net/api`
