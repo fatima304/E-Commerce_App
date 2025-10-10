@@ -3,6 +3,7 @@ import 'package:ecommerce_app/features/auth/data/models/forget_pass/forgot_passw
 import 'package:ecommerce_app/features/auth/data/models/forget_pass/forgot_password_response_model.dart';
 import 'package:ecommerce_app/features/auth/data/models/register/register_request_model.dart';
 import 'package:ecommerce_app/features/auth/data/models/register/register_response_model.dart';
+import 'package:ecommerce_app/features/auth/data/models/reset_password/reset_password_request_model.dart';
 import 'package:ecommerce_app/features/auth/data/models/verify_otp/verify_otp_request_model.dart';
 import 'package:ecommerce_app/features/auth/data/models/verify_otp/verify_otp_response_model.dart';
 import 'package:retrofit/retrofit.dart';
@@ -27,9 +28,12 @@ Future<dynamic> verifyOtpRaw(@Body() VerifyOtpRequestModel body);
 
 
 @POST(ApiConstants.forgetPassUrl)
-  Future<ForgotPasswordResponseModel> forgotPassword(
+  Future<dynamic> forgotPassword(
     @Body() ForgotPasswordRequestModel body,
   );
+
+@POST(ApiConstants.resetPasswordUrl)
+Future<dynamic> resetPassword(@Body() ResetPasswordRequestModel body);
 
 @POST(ApiConstants.logoutUrl)
 Future<void> logout();

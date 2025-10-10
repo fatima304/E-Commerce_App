@@ -7,6 +7,7 @@ import 'package:ecommerce_app/features/home/presentation/widgets/drawer_menu.dar
 import 'package:ecommerce_app/features/home/presentation/widgets/home_header.dart';
 import 'package:ecommerce_app/features/home/presentation/widgets/product_gridview.dart';
 import 'package:ecommerce_app/features/home/presentation/widgets/product_section.dart';
+import 'package:ecommerce_app/features/wishlist/presentation/manager/wishlist_cubit.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -25,6 +26,9 @@ class HomeScreen extends StatelessWidget {
               ),
                BlocProvider(
                 create: (context) => getIt<LogoutCubit>(),
+              ),
+              BlocProvider.value(
+                value: getIt<WishlistCubit>(),
               ),
             ],
             child: Scaffold(

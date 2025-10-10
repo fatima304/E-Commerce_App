@@ -1,5 +1,5 @@
+import 'package:ecommerce_app/core/widgets/safe_network_image_universal.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/svg.dart';
 
 class CategoryItem extends StatelessWidget {
   final String name;
@@ -10,7 +10,6 @@ class CategoryItem extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      width: 115,
       height: 50,
       decoration: BoxDecoration(
         color: Colors.grey.shade200,
@@ -19,15 +18,9 @@ class CategoryItem extends StatelessWidget {
       padding: const EdgeInsets.symmetric(horizontal: 8),
       child: Row(
         children: [
-          SvgPicture.network(
-            imageUrl,
-            width: 20,
-            height: 20,
-            errorBuilder: (context, error, stackTrace) =>
-                const Icon(Icons.image, size: 20),
-          ),
+          SafeNetworkImageUniversal(imageUrl: imageUrl, width: 20, height: 20),
           const SizedBox(width: 5),
-          Text(name),
+          Padding(padding: const EdgeInsets.only(left: 10), child: Text(name)),
         ],
       ),
     );

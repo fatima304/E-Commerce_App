@@ -1,3 +1,4 @@
+import 'package:ecommerce_app/core/widgets/safe_network_image.dart';
 import 'package:flutter/material.dart';
 
 class ProductImage extends StatelessWidget {
@@ -6,6 +7,10 @@ class ProductImage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Image.network(imageUrl, fit: BoxFit.cover, width: double.infinity);
+    return SafeNetworkImage(
+      imageUrl: imageUrl,
+      fit: BoxFit.cover,
+      width: double.infinity,
+    );
   }
 }

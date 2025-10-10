@@ -37,12 +37,24 @@ class _ForgotPasswordFormState extends State<ForgotPasswordForm> {
       child: BlocConsumer<ForgotPasswordCubit, ForgotPasswordState>(
         listener: (context, state) {
           if (state is ForgotPasswordSuccess) {
-            ScaffoldMessenger.of(
+            log('Forgot password success: ${state.response.message}');
+            ScaffoldMessenger.of(context).showSnackBar(
+              SnackBar(
+                content: Text(state.response.message),
+                backgroundColor: Colors.green,
+              ),
+            );
+            // Navigate to OTP screen in password reset mode
+            Navigator.pushNamed(
               context,
-            ).showSnackBar(SnackBar(content: Text(state.response.message)));
-            Navigator.pushNamed(context, Routes.verifyOtpScreen);
+              Routes.verifyOtpForgotPasswordScreen,
+              arguments: _emailController.text.trim(),
+            );
           } else if (state is ForgotPasswordFailure) {
-            log('Failure');
+            log('Forgot password failure: ${state.error}');
+            ScaffoldMessenger.of(context).showSnackBar(
+              SnackBar(content: Text(state.error), backgroundColor: Colors.red),
+            );
           }
         },
         builder: (context, state) {
@@ -80,7 +92,7 @@ class _ForgotPasswordFormState extends State<ForgotPasswordForm> {
               ),
               const Spacer(),
               Text(
-                'Please write your email to receive a confirmation code to set a new password.',
+                'Please write your email to receive a \nconfirmation code to set a new password.',
                 style: AppTextStyle.font13DarkGreyRegular,
                 textAlign: TextAlign.center,
               ),

@@ -4,6 +4,7 @@ import 'package:ecommerce_app/features/auth/presentation/manager/forget_pass/for
 import 'package:ecommerce_app/features/auth/presentation/manager/login/login_cubit.dart';
 import 'package:ecommerce_app/features/auth/presentation/manager/logout/logout_cubit.dart';
 import 'package:ecommerce_app/features/auth/presentation/manager/register/register_cubit.dart';
+import 'package:ecommerce_app/features/auth/presentation/manager/reset_password/reset_password_cubit.dart';
 import 'package:ecommerce_app/features/auth/presentation/manager/verify_otp/verify_otp_cubit.dart';
 import 'package:ecommerce_app/features/home/data/network/api_service.dart';
 import 'package:ecommerce_app/features/home/domain/repo/home_repo.dart';
@@ -14,6 +15,7 @@ import 'package:ecommerce_app/features/orders/domain/repo/cart_repo.dart';
 import 'package:ecommerce_app/features/orders/presentation/manager/cart/cart_cubit.dart';
 import 'package:ecommerce_app/features/orders/presentation/manager/coupons/coupon_cubit.dart';
 import 'package:ecommerce_app/features/orders/presentation/manager/address/address_cubit.dart';
+import 'package:ecommerce_app/features/wishlist/presentation/manager/wishlist_cubit.dart';
 import 'package:get_it/get_it.dart';
 import 'package:dio/dio.dart';
 
@@ -50,6 +52,9 @@ Future<void> setupServiceLocator() async {
   
     // Logout Cubit
   getIt.registerFactory<LogoutCubit>(() => LogoutCubit(getIt<AuthRepository>()));
+
+  // Reset Password Cubit
+  getIt.registerFactory<ResetPasswordCubit>(() => ResetPasswordCubit(getIt<AuthRepository>()));
   
     //Api Service
   getIt.registerLazySingleton<HomeApiService>(
@@ -87,5 +92,8 @@ Future<void> setupServiceLocator() async {
 
   // Address Cubit
   getIt.registerFactory<AddressCubit>(() => AddressCubit(getIt<CartRepository>()));
+
+  // Wishlist Cubit (shared instance across app)
+  getIt.registerLazySingleton<WishlistCubit>(() => WishlistCubit());
 
 }

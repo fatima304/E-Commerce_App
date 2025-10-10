@@ -1,6 +1,8 @@
+import 'package:ecommerce_app/core/di/dependency_injection.dart';
 import 'package:ecommerce_app/core/routes/routes.dart';
 import 'package:ecommerce_app/features/home/presentation/manager/products/products_cubit.dart';
 import 'package:ecommerce_app/features/home/presentation/manager/products/products_state.dart';
+import 'package:ecommerce_app/features/wishlist/presentation/manager/wishlist_cubit.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'product_item.dart';
@@ -45,18 +47,17 @@ class ProductGridView extends StatelessWidget {
               ),
               delegate: SliverChildBuilderDelegate((context, index) {
                 final product = products[index];
-                return GestureDetector(
-                  onTap: () {
-                    Navigator.pushNamed(
-                      context,
-                      Routes.detailsScreen,
-                      arguments: product,
-                    );
-                  },
+                return BlocProvider.value(
+                  value: getIt<WishlistCubit>(),
                   child: ProductItem(
-                    name: product.name,
-                    price: "${product.price} EGP",
-                    imageUrl: product.coverPictureUrl,
+                    product: product,
+                    onTap: () {
+                      Navigator.pushNamed(
+                        context,
+                        Routes.detailsScreen,
+                        arguments: product,
+                      );
+                    },
                   ),
                 );
               }, childCount: products.length),

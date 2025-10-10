@@ -24,7 +24,7 @@ class _CustomBottomNavBarState extends State<CustomBottomNavBar> {
   final List<IconData> _icons = [
     Icons.home_outlined,
     Icons.favorite_border,
-    Icons.shopping_cart_outlined,
+    Icons.shopping_bag_outlined,
   ];
 
   final List<String> _labels = [

@@ -1,8 +1,3 @@
-import 'package:json_annotation/json_annotation.dart';
-
-part 'forgot_password_response_model.g.dart';
-
-@JsonSerializable()
 class ForgotPasswordResponseModel {
   final String message;
 
@@ -12,11 +7,14 @@ class ForgotPasswordResponseModel {
     if (json is String) {
       return ForgotPasswordResponseModel(message: json);
     } else if (json is Map<String, dynamic>) {
-      return _$ForgotPasswordResponseModelFromJson(json);
+      final message = json['message'] as String? ?? 'OTP sent successfully';
+      return ForgotPasswordResponseModel(message: message);
     } else {
       return ForgotPasswordResponseModel(message: "Something went wrong");
     }
   }
 
-  Map<String, dynamic> toJson() => _$ForgotPasswordResponseModelToJson(this);
+  Map<String, dynamic> toJson() => {
+    'message': message,
+  };
 }

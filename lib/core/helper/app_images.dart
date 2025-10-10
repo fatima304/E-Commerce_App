@@ -8,5 +8,6 @@ class AppImages {
   static String orderConfirmed = '${AppConstants.imagePath}order_confirmed.png';
   static String circle = '${AppConstants.imagePath}circles.png';
   static String profile = '${AppConstants.imagePath}trio.png';
+  static String placeholder = '${AppConstants.imagePath}placeholder.jpeg';
 
 }

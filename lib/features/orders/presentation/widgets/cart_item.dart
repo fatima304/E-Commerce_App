@@ -1,4 +1,5 @@
 import 'package:ecommerce_app/core/theme/app_text_style.dart';
+import 'package:ecommerce_app/core/widgets/safe_network_image.dart';
 import 'package:ecommerce_app/features/details/presentation/widgets/quantity_selector.dart';
 import 'package:flutter/material.dart';
 
@@ -33,13 +34,11 @@ class CartItem extends StatelessWidget {
       child: Row(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Image.network(
-            imageUrl,
+          SafeNetworkImage(
+            imageUrl: imageUrl,
             width: 100,
             height: 100,
             fit: BoxFit.cover,
-            errorBuilder: (context, error, stackTrace) =>
-                const Icon(Icons.image, size: 20),
           ),
           const SizedBox(width: 15),
           Expanded(

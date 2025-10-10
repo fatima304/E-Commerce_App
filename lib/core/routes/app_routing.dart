@@ -7,6 +7,7 @@ import 'package:ecommerce_app/features/auth/presentation/screens/auth_screen.dar
 import 'package:ecommerce_app/features/auth/presentation/screens/forgot_pass.dart';
 import 'package:ecommerce_app/features/auth/presentation/screens/login_screen.dart';
 import 'package:ecommerce_app/features/auth/presentation/screens/register_screen.dart';
+import 'package:ecommerce_app/features/auth/presentation/screens/reset_password_screen.dart';
 import 'package:ecommerce_app/features/auth/presentation/screens/verify_otp_screen.dart';
 import 'package:ecommerce_app/features/orders/presentation/manager/cart/cart_cubit.dart';
 import 'package:ecommerce_app/features/orders/presentation/manager/coupons/coupon_cubit.dart';
@@ -18,6 +19,7 @@ import 'package:ecommerce_app/features/home/data/models/products/product_model.d
 import 'package:ecommerce_app/features/details/presentation/screens/details_screen.dart';
 import 'package:ecommerce_app/features/splash/presentation/screens/splash_screen.dart';
 import 'package:ecommerce_app/features/wishlist/presentation/screens/wishlist_screen.dart';
+import 'package:ecommerce_app/features/wishlist/presentation/manager/wishlist_cubit.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -27,7 +29,12 @@ class AppRouting {
       case Routes.splashScreen:
         return MaterialPageRoute(builder: (_) => SplashScreen());
       case Routes.bottomNavBar:
-        return MaterialPageRoute(builder: (_) => CustomBottomNavBar());
+        return MaterialPageRoute(
+          builder: (_) => BlocProvider.value(
+            value: getIt<WishlistCubit>(),
+            child: CustomBottomNavBar(),
+          ),
+        );
       case Routes.authScreen:
         return MaterialPageRoute(builder: (_) => AuthScreen());
       case Routes.loginScreen:
@@ -41,9 +48,25 @@ class AppRouting {
       case Routes.verifyOtpScreen:
         final userModel = routesSettings.arguments as RegisterRequestModel;
         return MaterialPageRoute(
-          builder: (_) => BlocProvider(
-            create: (context) => getIt<VerifyOtpCubit>(),
-            child: VerifyOtpScreen(userModel: userModel),
+          builder: (_) => VerifyOtpScreen(
+            mode: OtpMode.registration,
+            userModel: userModel,
+          ),
+        );
+      case Routes.verifyOtpForgotPasswordScreen:
+        final email = routesSettings.arguments as String;
+        return MaterialPageRoute(
+          builder: (_) => VerifyOtpScreen(
+            mode: OtpMode.passwordReset,
+            email: email,
+          ),
+        );
+      case Routes.resetPasswordScreen:
+        final args = routesSettings.arguments as Map<String, String>;
+        return MaterialPageRoute(
+          builder: (_) => ResetPasswordScreen(
+            email: args['email']!,
+            otp: args['otp'],
           ),
         );
 
