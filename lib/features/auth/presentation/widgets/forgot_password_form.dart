@@ -44,7 +44,6 @@ class _ForgotPasswordFormState extends State<ForgotPasswordForm> {
                 backgroundColor: Colors.green,
               ),
             );
-            // Navigate to OTP screen in password reset mode
             Navigator.pushNamed(
               context,
               Routes.verifyOtpForgotPasswordScreen,
@@ -53,7 +52,10 @@ class _ForgotPasswordFormState extends State<ForgotPasswordForm> {
           } else if (state is ForgotPasswordFailure) {
             log('Forgot password failure: ${state.error}');
             ScaffoldMessenger.of(context).showSnackBar(
-              SnackBar(content: Text(state.error), backgroundColor: Colors.red),
+              SnackBar(
+                content: Text('Conection Error'),
+                backgroundColor: Colors.red,
+              ),
             );
           }
         },

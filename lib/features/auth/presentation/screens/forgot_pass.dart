@@ -14,9 +14,8 @@ class ForgotPasswordScreen extends StatelessWidget {
       create: (_) => getIt<ForgotPasswordCubit>(),
       child: const Scaffold(
         backgroundColor: AppColors.white,
-        body: SafeArea(
-          child: ForgotPasswordForm(),
-        ),
+        resizeToAvoidBottomInset: true, 
+         body: ForgotPasswordForm(),
       ),
     );
   }

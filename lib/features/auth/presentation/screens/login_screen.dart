@@ -14,23 +14,40 @@ class LoginScreen extends StatelessWidget {
     return BlocProvider(
       create: (context) => getIt<LoginCubit>(),
       child: Scaffold(
-        body: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            SizedBox(height: 45),
-            CustomBackButton(),
-            Center(
-              child: Text('Welcome', style: AppTextStyle.font28BlackSemiBold),
-            ),
-            SizedBox(height: 5),
-            Center(
-              child: Text(
-                'Please enter your data to continue',
-                style: AppTextStyle.font13DarkGreyRegular,
+        resizeToAvoidBottomInset: true, 
+        body: CustomScrollView(
+          slivers: [
+            SliverToBoxAdapter(
+              child: Padding(
+                padding: const EdgeInsets.only(top: 45),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    const CustomBackButton(),
+                    const SizedBox(height: 10),
+                    Center(
+                      child: Text(
+                        'Welcome',
+                        style: AppTextStyle.font28BlackSemiBold,
+                      ),
+                    ),
+                    const SizedBox(height: 5),
+                    Center(
+                      child: Text(
+                        'Please enter your data to continue',
+                        style: AppTextStyle.font13DarkGreyRegular,
+                      ),
+                    ),
+                    const SizedBox(height: 50),
+                  ],
+                ),
               ),
             ),
-            SizedBox(height: 150),
-            Expanded(child: LoginFields()),
+
+             SliverFillRemaining(
+              hasScrollBody: false,
+              child: LoginFields(),
+            ),
           ],
         ),
       ),

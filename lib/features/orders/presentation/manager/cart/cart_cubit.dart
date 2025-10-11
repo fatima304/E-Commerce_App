@@ -52,8 +52,7 @@ class CartCubit extends Cubit<CartState> {
   }
 
   Future<void> deleteItem(String itemId) async {
-    // Optimistic update - immediately remove item from UI
-    if (state is CartLoaded) {
+     if (state is CartLoaded) {
       final currentState = state as CartLoaded;
       final updatedCart = _removeItemFromCart(currentState.cart, itemId);
       emit(CartLoaded(updatedCart, appliedCoupon: _appliedCoupon));
@@ -61,12 +60,10 @@ class CartCubit extends Cubit<CartState> {
 
     try {
       await _cartRepository.deleteItem(itemId);
-      // Show success message
-      emit(const CartSuccess('Item removed successfully.'));
+       emit(const CartSuccess('Item removed successfully.'));
     } catch (e) {
-      // Revert optimistic update on error
-      if (state is CartLoaded) {
-        await getCart(); // Reload to get correct state
+       if (state is CartLoaded) {
+        await getCart(); 
       }
       final error = ApiErrorHandler.handle(e);
       emit(CartFailure(error.message ?? 'Failed to remove item'));
@@ -74,8 +71,7 @@ class CartCubit extends Cubit<CartState> {
   }
 
   Future<void> updateItemQuantity(String itemId, String productId, int quantity) async {
-    // Optimistic update - immediately update quantity in UI
-    if (state is CartLoaded) {
+     if (state is CartLoaded) {
       final currentState = state as CartLoaded;
       final updatedCart = _updateItemQuantityInCart(currentState.cart, itemId, quantity);
       emit(CartLoaded(updatedCart, appliedCoupon: _appliedCoupon));
@@ -86,12 +82,10 @@ class CartCubit extends Cubit<CartState> {
         itemId,
         CartItemRequestModel(productId: productId, quantity: quantity),
       );
-      // Show success message
-      emit(CartSuccess(response.message));
+       emit(CartSuccess(response.message));
     } catch (e) {
-      // Revert optimistic update on error
-      if (state is CartLoaded) {
-        await getCart(); // Reload to get correct state
+       if (state is CartLoaded) {
+        await getCart(); 
       }
       final error = ApiErrorHandler.handle(e);
       emit(CartFailure(error.message ?? 'Failed to update quantity'));
@@ -116,8 +110,7 @@ class CartCubit extends Cubit<CartState> {
 
   CouponModel? get appliedCoupon => _appliedCoupon;
 
-  /// Helper method to remove an item from the cart locally
-  CartResponseModel _removeItemFromCart(CartResponseModel cart, String itemId) {
+   CartResponseModel _removeItemFromCart(CartResponseModel cart, String itemId) {
     final updatedItems = cart.cartItems.where((item) => item.itemId != itemId).toList();
     return CartResponseModel(
       cartId: cart.cartId,
@@ -125,12 +118,10 @@ class CartCubit extends Cubit<CartState> {
     );
   }
 
-  /// Helper method to update item quantity in the cart locally
   CartResponseModel _updateItemQuantityInCart(CartResponseModel cart, String itemId, int newQuantity) {
     final updatedItems = cart.cartItems.map((item) {
       if (item.itemId == itemId) {
-        // Create a new CartItemModel with updated quantity and total price
-        return CartItemModel(
+         return CartItemModel(
           itemId: item.itemId,
           productId: item.productId,
           productName: item.productName,

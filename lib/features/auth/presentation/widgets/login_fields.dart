@@ -69,52 +69,53 @@ class _LoginFieldsState extends State<LoginFields> {
         }
       },
       child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Expanded(
-            child: SingleChildScrollView(
-              padding: const EdgeInsets.only(left: 20),
-              child: Form(
-                key: _formKey,
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text('Email', style: AppTextStyle.font13DarkGreyRegular),
-                    CustomTextfield(
-                      controller: _emailController,
-                      validator: Validators.email,
-                    ),
-                    const SizedBox(height: 20),
-                    Text('Password', style: AppTextStyle.font13DarkGreyRegular),
-                    CustomTextfield(
-                      controller: _passwordController,
-                      validator: Validators.password,
-                      obscureText: true,
-                    ),
-                    const SizedBox(height: 20),
-                    TextButton(
-                      onPressed: () {
-                        Navigator.pushNamed(context, Routes.forgotPassScreen);
-                      },
-                      child: Align(
-                        alignment: Alignment.topRight,
-                        child: Text(
-                          'Forgot Password?',
-                          style: AppTextStyle.font15RedMedium,
-                        ),
+          Form(
+            key: _formKey,
+            child: Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 20),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text('Email', style: AppTextStyle.font13DarkGreyRegular),
+                  CustomTextfield(
+                    controller: _emailController,
+                    validator: Validators.email,
+                  ),
+                  const SizedBox(height: 20),
+                  Text('Password', style: AppTextStyle.font13DarkGreyRegular),
+                  CustomTextfield(
+                    controller: _passwordController,
+                    validator: Validators.password,
+                    obscureText: true,
+                  ),
+                  const SizedBox(height: 20),
+                  GestureDetector(
+                    onTap: () {
+                      Navigator.pushNamed(context, Routes.forgotPassScreen);
+                    },
+                    child: Align(
+                      alignment: Alignment.topRight,
+                      child: Text(
+                        'Forgot Password?',
+                        style: AppTextStyle.font15RedMedium,
                       ),
                     ),
-                  ],
-                ),
+                  ),
+                ],
               ),
             ),
           ),
+          const Spacer(),
           Center(
             child: RichText(
+              textAlign: TextAlign.center,
               text: TextSpan(
                 children: [
                   TextSpan(
                     text:
-                        'By connecting your account confirm that you agree\n                with our',
+                        'By connecting your account confirm that you agree\nwith our ',
                     style: AppTextStyle.font13DarkGreyRegular,
                   ),
                   TextSpan(
@@ -125,8 +126,12 @@ class _LoginFieldsState extends State<LoginFields> {
               ),
             ),
           ),
-          const SizedBox(height: 20),
-          MainButton(text: 'Login', onTap: _submitForm),
+          const SizedBox(height: 10),
+
+          SizedBox(
+            width: double.infinity,
+            child: MainButton(text: 'Login', onTap: _submitForm),
+          ),
         ],
       ),
     );

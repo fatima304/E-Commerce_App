@@ -3,6 +3,7 @@ import 'package:ecommerce_app/core/helper/alert_dialog.dart';
 import 'package:ecommerce_app/core/helper/validators.dart';
 import 'package:ecommerce_app/core/routes/routes.dart';
 import 'package:ecommerce_app/core/theme/app_text_style.dart';
+import 'package:ecommerce_app/core/widgets/custom_back_button.dart';
 import 'package:ecommerce_app/core/widgets/custom_textfield.dart';
 import 'package:ecommerce_app/features/auth/data/models/register/register_request_model.dart';
 import 'package:ecommerce_app/features/auth/presentation/manager/register/register_cubit.dart';
@@ -105,6 +106,15 @@ class _RegisterFieldsState extends State<RegisterFields> {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
+                    SizedBox(height: 50),
+                    CustomBackButton(),
+                    Center(
+                      child: Text(
+                        'Sign Up',
+                        style: AppTextStyle.font28BlackSemiBold,
+                      ),
+                    ),
+                    SizedBox(height: 150),
                     Text(
                       'First Name',
                       style: AppTextStyle.font13DarkGreyRegular,

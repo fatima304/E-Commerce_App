@@ -39,7 +39,11 @@ class DrawerMenuItems extends StatelessWidget {
                 onChanged: (value) {},
                 activeThumbColor: AppColors.mainColor,
               )
-            : const Icon(Icons.arrow_forward_ios, size: 16, color: AppColors.darkGrey),
+            : const Icon(
+                Icons.arrow_forward_ios,
+                size: 16,
+                color: AppColors.darkGrey,
+              ),
         onTap: () {},
       ),
     );

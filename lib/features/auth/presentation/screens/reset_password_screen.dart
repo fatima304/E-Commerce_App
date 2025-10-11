@@ -17,11 +17,7 @@ class ResetPasswordScreen extends StatefulWidget {
   final String email;
   final String? otp;
 
-  const ResetPasswordScreen({
-    super.key,
-    required this.email,
-    this.otp,
-  });
+  const ResetPasswordScreen({super.key, required this.email, this.otp});
 
   @override
   State<ResetPasswordScreen> createState() => _ResetPasswordScreenState();
@@ -59,10 +55,7 @@ class _ResetPasswordScreenState extends State<ResetPasswordScreen> {
               child: const Text('OK'),
               onPressed: () {
                 Navigator.of(dialogContext).pop();
-                Navigator.pushReplacementNamed(
-                  context,
-                  Routes.loginScreen,
-                );
+                Navigator.pushReplacementNamed(context, Routes.loginScreen);
               },
             ),
           ],
@@ -77,49 +70,46 @@ class _ResetPasswordScreenState extends State<ResetPasswordScreen> {
       create: (_) => getIt<ResetPasswordCubit>(),
       child: Scaffold(
         backgroundColor: AppColors.white,
+        resizeToAvoidBottomInset: true,
         body: BlocListener<ResetPasswordCubit, ResetPasswordState>(
           listener: (context, state) {
             if (state is ResetPasswordSuccess) {
               _showSuccessDialog(context);
             } else if (state is ResetPasswordFailure) {
-              ScaffoldMessenger.of(context).showSnackBar(
-                SnackBar(content: Text(state.error)),
-              );
+              ScaffoldMessenger.of(
+                context,
+              ).showSnackBar(SnackBar(content: Text(state.error)));
             }
           },
-          child: Form(
-            key: _formKey,
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.center,
-              children: [
-                const SizedBox(height: 45),
-                const Align(
-                  alignment: Alignment.topLeft,
-                  child: CustomBackButton(),
-                ),
-                Text(
-                  'Reset Password',
-                  style: AppTextStyle.font28BlackSemiBold,
-                ),
-                const SizedBox(height: 50),
-                Image.asset(AppImages.verify),
-                const SizedBox(height: 50),
-                // OTP Field
-                Align(
-                  alignment: Alignment.topLeft,
-                  child: Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 16),
-                    child: Text(
-                      'Verification Code',
-                      style: AppTextStyle.font13DarkGreyRegular,
+          child: SafeArea(
+            child: SingleChildScrollView(
+              padding: const EdgeInsets.symmetric(horizontal: 16),
+              child: Form(
+                key: _formKey,
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: [
+                    const SizedBox(height: 20),
+                    const Align(
+                      alignment: Alignment.topLeft,
+                      child: CustomBackButton(),
                     ),
-                  ),
-                ),
-                Align(
-                  alignment: Alignment.topLeft,
-                  child: Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 16),
-                    child: CustomTextfield(
+                    Text(
+                      'Reset Password',
+                      style: AppTextStyle.font28BlackSemiBold,
+                    ),
+                    const SizedBox(height: 40),
+                    Image.asset(AppImages.verify),
+                    const SizedBox(height: 40),
+                    Align(
+                      alignment: Alignment.topLeft,
+                      child: Text(
+                        'Verification Code',
+                        style: AppTextStyle.font13DarkGreyRegular,
+                      ),
+                    ),
+                    const SizedBox(height: 8),
+                    CustomTextfield(
                       controller: _otpController,
                       validator: (value) {
                         if (value == null || value.isEmpty) {
@@ -131,25 +121,16 @@ class _ResetPasswordScreenState extends State<ResetPasswordScreen> {
                         return null;
                       },
                     ),
-                  ),
-                ),
-                const SizedBox(height: 16),
-                // New Password Field
-                Align(
-                  alignment: Alignment.topLeft,
-                  child: Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 16),
-                    child: Text(
-                      'New Password',
-                      style: AppTextStyle.font13DarkGreyRegular,
+                    const SizedBox(height: 16),
+                    Align(
+                      alignment: Alignment.topLeft,
+                      child: Text(
+                        'New Password',
+                        style: AppTextStyle.font13DarkGreyRegular,
+                      ),
                     ),
-                  ),
-                ),
-                Align(
-                  alignment: Alignment.topLeft,
-                  child: Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 16),
-                    child: CustomTextfield(
+                    const SizedBox(height: 8),
+                    CustomTextfield(
                       controller: _newPasswordController,
                       obscureText: _obscureNewPassword,
                       validator: Validators.password,
@@ -166,39 +147,39 @@ class _ResetPasswordScreenState extends State<ResetPasswordScreen> {
                         },
                       ),
                     ),
-                  ),
-                 ),
-                const Spacer(),
-                Text(
-                  'Enter the verification code sent to your email and your new password.',
-                  style: AppTextStyle.font13DarkGreyRegular,
-                  textAlign: TextAlign.center,
+                    const SizedBox(height: 20),
+                    Text(
+                      'Enter the verification code sent to your email and your new password.',
+                      style: AppTextStyle.font13DarkGreyRegular,
+                      textAlign: TextAlign.center,
+                    ),
+                    const SizedBox(height: 16),
+                    BlocBuilder<ResetPasswordCubit, ResetPasswordState>(
+                      builder: (context, state) {
+                        return state is ResetPasswordLoading
+                            ? const CircularProgressIndicator()
+                            : MainButton(
+                                text: 'Reset Password',
+                                onTap: () {
+                                  if (_formKey.currentState!.validate()) {
+                                    final request = ResetPasswordRequestModel(
+                                      email: widget.email,
+                                      otp: _otpController.text.trim(),
+                                      newPassword: _newPasswordController.text
+                                          .trim(),
+                                    );
+                                    context
+                                        .read<ResetPasswordCubit>()
+                                        .resetPassword(request);
+                                  }
+                                },
+                              );
+                      },
+                    ),
+                    const SizedBox(height: 20),
+                  ],
                 ),
-                const SizedBox(height: 8),
-                BlocBuilder<ResetPasswordCubit, ResetPasswordState>(
-                  builder: (context, state) {
-                    return state is ResetPasswordLoading
-                        ? const CircularProgressIndicator()
-                        : MainButton(
-                            text: 'Reset Password',
-                            onTap: () {
-                              if (_formKey.currentState!.validate()) {
-                               final request = ResetPasswordRequestModel(
-                                 email: widget.email,
-                                 otp: _otpController.text.trim(),
-                                 newPassword: _newPasswordController.text.trim(),
-                               );
-                                context
-                                    .read<ResetPasswordCubit>()
-                                    .resetPassword(request);
-                                    
-                              }
-                            },
-                          );
-                  },
-                ),
-                const SizedBox(height: 20),
-              ],
+              ),
             ),
           ),
         ),
