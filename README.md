@@ -11,6 +11,33 @@ A modern and sleek mobile commerce application built with **Flutter**, designed 
 - Android Studio / VS Code
 - Android device/emulator or iOS device/simulator
 
+### Installation Steps
+
+1. **Clone the repository**
+   ```bash
+   git clone https://github.com/your-username/ecommerce_app.git
+   cd ecommerce_app
+   ```
+
+2. **Install dependencies**
+   ```bash
+   flutter pub get
+   ```
+
+3. **Run the app**
+   ```bash
+   flutter run
+   ```
+
+4. **Build for production**
+   ```bash
+   # For Android APK
+   flutter build apk --release
+   
+   # For iOS
+   flutter build ios --release
+   ```
+
 ### Troubleshooting
 - If you encounter dependency issues, run `flutter clean` followed by `flutter pub get`
 - For Android build issues, ensure you have the latest Android SDK installed
@@ -149,12 +176,12 @@ lib/
   <table>
     <tr>
       <td align="center">
-        <img width="300" src="https://github.com/user-attachments/assets/e4134c00-1952-4c98-8876-44615a934776" alt="Splash Screen" />
-        <br><b>Splash Screen</b>
+        <img width="300" src="https://github.com/user-attachments/assets/e4134c00-1952-4c98-8876-44615a934776" alt="Verification Code Screen" />
+        <br><b>Verification Code Screen</b>
       </td>
       <td align="center">
-        <img width="300" src="https://github.com/user-attachments/assets/c5727341-f88f-4ffc-9b10-be307d569261" alt="Authentication" />
-        <br><b>Authentication</b>
+        <img width="300" src="https://github.com/user-attachments/assets/c5727341-f88f-4ffc-9b10-be307d569261" alt="Onboarding Screen" />
+        <br><b>Onboarding Screen</b>
       </td>
     </tr>
     <tr>
@@ -163,8 +190,8 @@ lib/
         <br><b>Login Screen</b>
       </td>
       <td align="center">
-        <img width="300" src="https://github.com/user-attachments/assets/b05f61a9-9206-4d45-9dc2-38998b03ddfb" alt="Registration Screen" />
-        <br><b>Registration Screen</b>
+        <img width="300" src="https://github.com/user-attachments/assets/b05f61a9-9206-4d45-9dc2-38998b03ddfb" alt="Sign Up Screen" />
+        <br><b>Sign Up Screen</b>
       </td>
     </tr>
     <tr>
