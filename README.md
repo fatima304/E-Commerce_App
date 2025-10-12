@@ -11,33 +11,6 @@ A modern and sleek mobile commerce application built with **Flutter**, designed 
 - Android Studio / VS Code
 - Android device/emulator or iOS device/simulator
 
-### Installation Steps
-
-1. **Clone the repository**
-   ```bash
-   git clone https://github.com/your-username/ecommerce_app.git
-   cd ecommerce_app
-   ```
-
-2. **Install dependencies**
-   ```bash
-   flutter pub get
-   ```
-
-3. **Run the app**
-   ```bash
-   flutter run
-   ```
-
-4. **Build for production**
-   ```bash
-   # For Android APK
-   flutter build apk --release
-   
-   # For iOS
-   flutter build ios --release
-   ```
-
 ### Troubleshooting
 - If you encounter dependency issues, run `flutter clean` followed by `flutter pub get`
 - For Android build issues, ensure you have the latest Android SDK installed
@@ -167,45 +140,6 @@ lib/
 │   └── splash/         # Splash screen
 └── main.dart           # App entry point
 ```
-
-## 🔧 Configuration
-
-### Environment Setup
-- **Base URL**: `https://accessories-eshop.runasp.net/api`
-- **Flutter SDK**: ^3.9.2
-- **Dart SDK**: Included with Flutter
-
-### Android Configuration
-- **Minimum SDK**: API level 21 (Android 5.0)
-- **Target SDK**: Latest stable version
-- **Network Security**: Configured for HTTP/HTTPS requests
-
-## 🤝 Contributing
-
-1. Fork the repository
-2. Create your feature branch (`git checkout -b feature/AmazingFeature`)
-3. Commit your changes (`git commit -m 'Add some AmazingFeature'`)
-4. Push to the branch (`git push origin feature/AmazingFeature`)
-5. Open a Pull Request
-
-## 📄 License
-
-This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
-
-## 👥 Acknowledgments
-
-- Design inspired by **Laza E-commerce UI Kit**
-- Built with ❤️ using Flutter
-- Thanks to all contributors who helped make this project possible
-
-## 📞 Support
-
-If you have any questions or need help, please:
-- Open an issue on GitHub
-- Contact the development team
-- Check the documentation
-
----
 
 **Happy Shopping! 🛍️**
 
