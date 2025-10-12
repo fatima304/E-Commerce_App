@@ -228,6 +228,8 @@ lib/
       <img width="250" src="https://github.com/user-attachments/assets/22d949f3-890a-4c3d-9b37-e940235f00d0" alt="Address Details" />
       <br><b>Address Details</b>
     </td>
+     <img width="250" alt="Screenshot_1760272023" src="https://github.com/user-attachments/assets/8c079eb1-5b30-44a2-93b3-f72ced1bf672" />
+
   </tr>
 
 </table>
