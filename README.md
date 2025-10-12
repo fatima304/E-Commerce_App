@@ -2,9 +2,6 @@
 
 A modern and sleek mobile commerce application built with **Flutter**, designed to provide users with a seamless shopping experience. This app is inspired by the **Laza E-commerce UI Kit** design and implements a clean architecture pattern with BLoC state management.
 
-## 📱 Screenshots
-
-*Add screenshots of your app here*
 
 ## 🚀 How to Run the App
 
@@ -211,3 +208,17 @@ If you have any questions or need help, please:
 ---
 
 **Happy Shopping! 🛍️**
+
+## 📱 Screenshots
+
+<img width="1080" height="2424" alt="Screenshot_1760268583" src="https://github.com/user-attachments/assets/e4134c00-1952-4c98-8876-44615a934776" />
+<img width="1080" height="2424" alt="Screenshot_1760268494" src="https://github.com/user-attachments/assets/c5727341-f88f-4ffc-9b10-be307d569261" />
+<img width="1080" height="2424" alt="Screenshot_1760268489" src="https://github.com/user-attachments/assets/3ea28760-0762-4bf2-8edd-6975cb919c27" />
+<img width="1080" height="2424" alt="Screenshot_1760268485" src="https://github.com/user-attachments/assets/b05f61a9-9206-4d45-9dc2-38998b03ddfb" />
+<img width="1080" height="2424" alt="Screenshot_1760268478" src="https://github.com/user-attachments/assets/9fb43437-6b96-413a-8acd-8d26c5de5c9d" />
+<img width="1080" height="2424" alt="Screenshot_1760268378" src="https://github.com/user-attachments/assets/22d949f3-890a-4c3d-9b37-e940235f00d0" />
+<img width="1080" height="2424" alt="Screenshot_1760268276" src="https://github.com/user-attachments/assets/7cb4e28e-e31e-472b-a724-80228ec113d3" />
+<img width="1080" height="2424" alt="Screenshot_1760268238" src="https://github.com/user-attachments/assets/eeb9b40a-beef-4314-8066-e2ed6d925e99" />
+
+<img width="1080" height="2424" alt="Screenshot_1760268236" src="https://github.com/user-attachments/assets/5376ae25-931a-4484-8052-16169aaad5ff" />
+<img width="1080" height="2424" alt="Screenshot_1760268215" src="https://github.com/user-attachments/assets/01afc05b-5dd9-42fd-9d01-1e5623c8b9ec" />
