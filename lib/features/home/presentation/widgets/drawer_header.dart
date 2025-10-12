@@ -1,4 +1,5 @@
 import 'package:ecommerce_app/core/helper/app_images.dart';
+import 'package:ecommerce_app/core/helper/user_service.dart';
 import 'package:ecommerce_app/core/theme/app_color.dart';
 import 'package:ecommerce_app/core/theme/app_text_style.dart';
 import 'package:flutter/material.dart';
@@ -34,9 +35,15 @@ class DrawerHeaderWidget extends StatelessWidget {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Text(
-                      'Mrh Raju',
-                      style: AppTextStyle.font17BlackSemiBold.copyWith(fontSize: 18),
+                    FutureBuilder<String?>(
+                      future: UserService.getUserName(),
+                      builder: (context, snapshot) {
+                        final userName = snapshot.data ?? 'User';
+                        return Text(
+                          userName,
+                          style: AppTextStyle.font17BlackSemiBold.copyWith(fontSize: 18),
+                        );
+                      },
                     ),
                     const SizedBox(height: 4),
                     Row(

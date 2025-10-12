@@ -24,12 +24,18 @@ class SafeNetworkImage extends StatelessWidget {
       return _buildPlaceholder();
     }
 
+    // Validate URL before attempting to load
+    if (!_isValidUrl(imageUrl!)) {
+      return _buildPlaceholder();
+    }
+
     Widget imageWidget = Image.network(
       imageUrl!,
       width: width,
       height: height,
       fit: fit ?? BoxFit.cover,
       errorBuilder: (context, error, stackTrace) {
+        debugPrint('Image loading error: $error');
         return _buildPlaceholder();
       },
       loadingBuilder: (context, child, loadingProgress) {
@@ -76,5 +82,33 @@ class SafeNetworkImage extends StatelessWidget {
         ),
       ),
     );
+  }
+
+  bool _isValidUrl(String url) {
+    try {
+      // Basic URL validation
+      if (!url.startsWith('http://') && !url.startsWith('https://')) {
+        return false;
+      }
+
+      // Check for common invalid patterns
+      if (url.contains('null') ||
+          url.contains('undefined') ||
+          url.trim().isEmpty ||
+          url.contains('wikipedia.org') ||
+          url.contains('upload.wikimedia.org')) {
+        return false;
+      }
+
+      // Additional validation for malformed URLs
+      final uri = Uri.tryParse(url);
+      if (uri == null || !uri.hasScheme || !uri.hasAuthority) {
+        return false;
+      }
+
+      return true;
+    } catch (e) {
+      return false;
+    }
   }
 }

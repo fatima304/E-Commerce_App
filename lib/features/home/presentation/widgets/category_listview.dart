@@ -1,4 +1,3 @@
-import 'package:ecommerce_app/core/routes/routes.dart';
 import 'package:ecommerce_app/features/home/presentation/manager/category/category_cubit.dart';
 import 'package:ecommerce_app/features/home/presentation/manager/category/category_state.dart';
 import 'package:ecommerce_app/features/home/presentation/widgets/category_item.dart';
@@ -24,18 +23,9 @@ class CategoryListView extends StatelessWidget {
               itemCount: categories.length,
               itemBuilder: (context, index) {
                 final category = categories[index];
-                return GestureDetector(
-                   onTap: () {
-                     Navigator.pushNamed(
-                      context,
-                      Routes.categoryScreen,
-                      arguments: category,
-                    );
-                  },
-                  child: CategoryItem(
-                    name: category.name,
-                    imageUrl: category.coverPictureUrl,
-                  ),
+                return CategoryItem(
+                  name: category.name,
+                  imageUrl: category.coverPictureUrl,
                 );
               },
               separatorBuilder: (context, index) => const SizedBox(width: 10),

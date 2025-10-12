@@ -78,6 +78,7 @@ class _LoginFieldsState extends State<LoginFields> {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
+                  SizedBox(height: 60),
                   Text('Email', style: AppTextStyle.font13DarkGreyRegular),
                   CustomTextfield(
                     controller: _emailController,

@@ -60,60 +60,58 @@ class _ForgotPasswordFormState extends State<ForgotPasswordForm> {
           }
         },
         builder: (context, state) {
-          return Column(
-            crossAxisAlignment: CrossAxisAlignment.center,
-            children: [
-              const SizedBox(height: 45),
-              const Align(
-                alignment: Alignment.topLeft,
-                child: CustomBackButton(),
-              ),
-              Text('Forgot Password', style: AppTextStyle.font28BlackSemiBold),
-              const SizedBox(height: 50),
-              Image.asset(AppImages.verify),
-              const SizedBox(height: 50),
-              Align(
-                alignment: Alignment.topLeft,
-                child: Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 16),
-                  child: Text(
-                    'Email',
-                    style: AppTextStyle.font13DarkGreyRegular,
+          return SafeArea(
+            child: SingleChildScrollView(
+              padding: const EdgeInsets.symmetric(horizontal: 16),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: [
+                  const SizedBox(height: 45),
+                  const Align(
+                    alignment: Alignment.topLeft,
+                    child: CustomBackButton(),
                   ),
-                ),
-              ),
-              Align(
-                alignment: Alignment.topLeft,
-                child: Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 16),
-                  child: CustomTextfield(
+                  Text('Forgot Password', style: AppTextStyle.font28BlackSemiBold),
+                  const SizedBox(height: 50),
+                  Image.asset(AppImages.verify),
+                  const SizedBox(height: 50),
+                  Align(
+                    alignment: Alignment.topLeft,
+                    child: Text(
+                      'Email',
+                      style: AppTextStyle.font13DarkGreyRegular,
+                    ),
+                  ),
+                  const SizedBox(height: 8),
+                  CustomTextfield(
                     controller: _emailController,
                     validator: Validators.email,
                   ),
-                ),
+                  const SizedBox(height: 20),
+                  Text(
+                    'Please write your email to receive a \nconfirmation code to set a new password.',
+                    style: AppTextStyle.font13DarkGreyRegular,
+                    textAlign: TextAlign.center,
+                  ),
+                  const SizedBox(height: 20),
+                  state is ForgotPasswordLoading
+                      ? const CircularProgressIndicator()
+                      : MainButton(
+                          text: 'Confirm Mail',
+                          onTap: () {
+                            if (_formKey.currentState!.validate()) {
+                              context.read<ForgotPasswordCubit>().forgotPassword(
+                                ForgotPasswordRequestModel(
+                                  email: _emailController.text.trim(),
+                                ),
+                              );
+                            }
+                          },
+                        ),
+                  const SizedBox(height: 20),
+                ],
               ),
-              const Spacer(),
-              Text(
-                'Please write your email to receive a \nconfirmation code to set a new password.',
-                style: AppTextStyle.font13DarkGreyRegular,
-                textAlign: TextAlign.center,
-              ),
-              const SizedBox(height: 8),
-              state is ForgotPasswordLoading
-                  ? const CircularProgressIndicator()
-                  : MainButton(
-                      text: 'Confirm Mail',
-                      onTap: () {
-                        if (_formKey.currentState!.validate()) {
-                          context.read<ForgotPasswordCubit>().forgotPassword(
-                            ForgotPasswordRequestModel(
-                              email: _emailController.text.trim(),
-                            ),
-                          );
-                        }
-                      },
-                    ),
-            ],
+            ),
           );
         },
       ),

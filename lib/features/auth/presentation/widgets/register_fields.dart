@@ -1,5 +1,6 @@
 import 'dart:developer';
 import 'package:ecommerce_app/core/helper/alert_dialog.dart';
+import 'package:ecommerce_app/core/helper/user_service.dart';
 import 'package:ecommerce_app/core/helper/validators.dart';
 import 'package:ecommerce_app/core/routes/routes.dart';
 import 'package:ecommerce_app/core/theme/app_text_style.dart';
@@ -60,13 +61,23 @@ class _RegisterFieldsState extends State<RegisterFields> {
   @override
   Widget build(BuildContext context) {
     return BlocListener<RegisterCubit, RegisterState>(
-      listener: (context, state) {
+      listener: (context, state) async {
         if (state is RegisterSuccess) {
+          final firstName = _firstNameController.text.trim();
+          final lastName = _lastNameController.text.trim();
+          final email = _emailController.text.trim();
+
+          await UserService.saveUserData(
+            firstName: firstName,
+            lastName: lastName,
+            email: email,
+          );
+
           final registerRequest = RegisterRequestModel(
-            email: _emailController.text.trim(),
+            email: email,
             password: _passwordController.text.trim(),
-            firstName: _firstNameController.text.trim(),
-            lastName: _lastNameController.text.trim(),
+            firstName: firstName,
+            lastName: lastName,
           );
           Navigator.pop(context);
 

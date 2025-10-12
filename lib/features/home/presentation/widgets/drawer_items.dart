@@ -1,3 +1,4 @@
+import 'package:ecommerce_app/core/routes/routes.dart';
 import 'package:ecommerce_app/core/theme/app_color.dart';
 import 'package:ecommerce_app/core/theme/app_text_style.dart';
 import 'package:flutter/material.dart';
@@ -22,12 +23,12 @@ class DrawerMenuItems extends StatelessWidget {
       itemCount: menuItems.length,
       itemBuilder: (context, index) {
         final item = menuItems[index];
-        return _buildMenuItem(item);
+        return _buildMenuItem(item, context);
       },
     );
   }
 
-  Widget _buildMenuItem(_MenuItemData item) {
+  Widget _buildMenuItem(_MenuItemData item, BuildContext context) {
     return Container(
       margin: const EdgeInsets.only(bottom: 8),
       child: ListTile(
@@ -44,7 +45,12 @@ class DrawerMenuItems extends StatelessWidget {
                 size: 16,
                 color: AppColors.darkGrey,
               ),
-        onTap: () {},
+        onTap: () {
+          if (item.title == 'Wishlist') {
+            Navigator.pushNamed(context, Routes.wishlistScreen);
+          }
+          // Add other navigation logic here as needed
+        },
       ),
     );
   }

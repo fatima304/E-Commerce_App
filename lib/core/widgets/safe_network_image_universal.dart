@@ -49,8 +49,9 @@ class SafeNetworkImageUniversal extends StatelessWidget {
       color: svgColor,
       errorBuilder: (context, error, stackTrace) {
         debugPrint('SVG loading error: $error');
-        // If SVG fails, try as regular image
-        return _buildImageWidget();
+        // If SVG fails, return placeholder instead of trying image widget
+        // to avoid cascading errors
+        return _buildPlaceholder();
       },
       placeholderBuilder: (context) => _buildLoadingPlaceholder(),
     );
@@ -130,7 +131,15 @@ class SafeNetworkImageUniversal extends StatelessWidget {
       // Check for common invalid patterns
       if (url.contains('null') ||
           url.contains('undefined') ||
-          url.trim().isEmpty) {
+          url.trim().isEmpty ||
+          url.contains('wikipedia.org') || // Block Wikipedia URLs that are failing
+          url.contains('upload.wikimedia.org')) {
+        return false;
+      }
+
+      // Additional validation for malformed URLs
+      final uri = Uri.tryParse(url);
+      if (uri == null || !uri.hasScheme || !uri.hasAuthority) {
         return false;
       }
 

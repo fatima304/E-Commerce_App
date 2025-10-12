@@ -1,5 +1,6 @@
 import 'dart:developer';
 import 'package:ecommerce_app/core/helper/alert_dialog.dart';
+import 'package:ecommerce_app/core/helper/user_service.dart';
 import 'package:ecommerce_app/core/theme/app_color.dart';
 import 'package:ecommerce_app/core/theme/app_text_style.dart';
 import 'package:ecommerce_app/features/auth/presentation/manager/logout/logout_cubit.dart';
@@ -34,6 +35,8 @@ class DrawerMenu extends StatelessWidget {
         listener: (context, state) {
           if (state is LogoutSuccess) {
             log('Success');
+            // Clear user data on logout
+            UserService.clearUserData();
             Navigator.pushNamedAndRemoveUntil(
               context,
               Routes.loginScreen,

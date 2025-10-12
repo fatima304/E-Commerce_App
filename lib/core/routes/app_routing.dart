@@ -42,7 +42,12 @@ class AppRouting {
       case Routes.forgotPassScreen:
         return MaterialPageRoute(builder: (_) => ForgotPasswordScreen());
       case Routes.wishlistScreen:
-        return MaterialPageRoute(builder: (_) => WishlistScreen());
+        return MaterialPageRoute(
+          builder: (_) => BlocProvider.value(
+            value: getIt<WishlistCubit>(),
+            child: WishlistScreen(),
+          ),
+        );
       case Routes.registerScreen:
         return MaterialPageRoute(builder: (_) => RegisterScreen());
       case Routes.verifyOtpScreen:
